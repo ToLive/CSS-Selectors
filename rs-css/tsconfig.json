@@ -15,19 +15,34 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "strict": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
+        "baseUrl": ".",
         "paths": {
-            "@components/*": [
-                "src/components/*"
+            "@/*": [
+                "src/*"
             ],
-            "@helpers/*": [
-                "src/helpers/*"
-            ]
+            "@app/*": [
+                "src/app/*"
+            ],
+            "@pages/*": [
+                "src/pages/*"
+            ],
+            "@widgets/*": [
+                "src/widgets/*"
+            ],
+            "@features/*": [
+                "src/features/*"
+            ],
+            "@entities/*": [
+                "src/entities/*"
+            ],
+            "@shared/*": [
+                "src/shared/*"
+            ],
         },
-        "baseUrl": "./"
     },
     "include": [
         "src"

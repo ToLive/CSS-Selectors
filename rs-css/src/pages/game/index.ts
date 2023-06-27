@@ -1,0 +1,29 @@
+import { Description } from "@widgets/Description";
+import { Editor } from "@widgets/Editor";
+import { Examples } from "@widgets/Examples";
+import { Footer } from "@widgets/Footer";
+import { Gamefield } from "@widgets/Gamefield";
+import { Header } from "@widgets/Header";
+import { Levelselect } from "@widgets/Levelselect";
+
+export class Game {
+    private description = new Description();
+
+    private editor = new Editor();
+
+    private examples = new Examples();
+
+    private footer = new Footer();
+
+    private gamefield = new Gamefield();
+
+    private header = new Header();
+
+    private levelselect = new Levelselect();
+
+    public start(): void {
+        console.log('This is Game');
+
+        document.body.append(this.header.getHeader());
+    }
+}
