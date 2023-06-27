@@ -1,6 +1,6 @@
 import App from '@app/App';
 
-// import './global.css';
+import './global.css';
 
 const app = new App();
 

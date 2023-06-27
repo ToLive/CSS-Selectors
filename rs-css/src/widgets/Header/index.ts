@@ -6,7 +6,7 @@ export class Header {
 
         this.header = document.createElement('div');
         this.header.innerHTML = 'Header';
-        this.header.classList.add('header');
+        this.header.classList.add('bg-black', 'h-[100px]');
     }
 
     public getHeader(): HTMLDivElement {

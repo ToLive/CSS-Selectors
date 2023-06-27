@@ -1,4 +1,6 @@
 .eslintrc.js
+tailwind.config.js
+postcss.config.js
 webpack.config.js
 webpack.dev.config.js
 webpack.prod.config.js
