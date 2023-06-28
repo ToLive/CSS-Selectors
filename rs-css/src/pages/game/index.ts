@@ -24,6 +24,16 @@ export class Game {
     public start(): void {
         console.log('This is Game');
 
-        document.body.append(this.header.getHeader());
+        this.buildField();
+    }
+
+    private buildField(): void {
+        document.body.append(this.header.getContainer());
+        /* document.body.append(this.gamefield.getHeader());
+        document.body.append(this.editor.getHeader());
+        document.body.append(this.footer.getHeader());
+        document.body.append(this.levelselect.getHeader());
+        document.body.append(this.description.getHeader());
+        document.body.append(this.examples.getHeader()); */
     }
 }
