@@ -3,5 +3,8 @@
     "include": [
         "src/**/*.ts",
         "src/**/*.js"
+    ],
+    "exclude": [
+        "src/**/*.d.ts",
     ]
 }

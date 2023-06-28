@@ -8,7 +8,6 @@ module.exports = {
         'airbnb-typescript/base',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'plugin:perfectionist/recommended-natural',
         'prettier',
     ],
     overrides: [],
@@ -19,7 +18,7 @@ module.exports = {
         sourceType: 'module',
         project: './tsconfig.eslint.json',
     },
-    plugins: ['@typescript-eslint', 'perfectionist'],
+    plugins: ['@typescript-eslint'],
     root: true,
     rules: {
         'import/extensions': 'off',
@@ -52,12 +51,5 @@ module.exports = {
         'no-debugger': 'off',
         'no-console': 0,
         'class-methods-use-this': 'off',
-        'perfectionist/sort-objects': [
-            'error',
-            {
-                'type': 'natural',
-                'order': 'asc'
-            }
-        ]
     },
 };

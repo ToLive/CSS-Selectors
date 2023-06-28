@@ -1,4 +1,5 @@
 .eslintrc.js
+*.d.ts
 tailwind.config.js
 postcss.config.js
 webpack.config.js
