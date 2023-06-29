@@ -29,8 +29,8 @@ export class Game {
 
     private buildField(): void {
         document.body.append(this.header.getContainer());
-        /* document.body.append(this.gamefield.getHeader());
-        document.body.append(this.editor.getHeader());
+        document.body.append(this.gamefield.getContainer());
+        /*document.body.append(this.editor.getHeader());
         document.body.append(this.footer.getHeader());
         document.body.append(this.levelselect.getHeader());
         document.body.append(this.description.getHeader());
