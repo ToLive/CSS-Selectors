@@ -4,7 +4,7 @@ import { ModalProps } from './types';
 
 export class Modal {
     private props: ModalProps = {
-        title: 'Help',
+        title: 'No worries, you\'ve got this!',
     };
 
     private modal: HTMLDivElement = document.createElement('div');
@@ -26,36 +26,35 @@ export class Modal {
                                 </path>
                             </svg>
                         </div>
+                    </div>        
+                    <div class="my-5">                        
+                        <p class="my-2">
+                            You're about to learn CSS Selectors!
+                            Selectors are how you pick which element to apply styles to.
+                        </p>
+            
+                        <h4 class="text-bold">Exhibit 1 - A CSS Rule</h4>
+            
+                        <p class="bg-gray-200 p-4 my-2">
+                            p {<br/>
+                                &nbsp;&nbsp;margin-bottom: 12px;<br/>
+                        }</p>
+            
+                        <p class="my-2">
+                            Here, the "p" is the selector (selects all &lt;p&gt; elements) and applies the margin-bottom style.
+                        </p>
+                        <p class="my-2">
+                            To play, type in a CSS selector in the editor below to select the correct items on the table.If you get it right, you'll advance to the next level.
+                        </p>
+                        <p class="my-2">
+                            Hover over the items on the table to see their HTML markup.
+                        </p>
+                        <p class="my-2">
+                            Get help with selectors on the right! →
+                        </p>
                     </div>
         
-                    <div class="my-5">
-                    <h3>No worries, you've got this!</h3>
-                    <p>
-                      You're about to learn CSS Selectors!
-                      Selectors are how you pick which element to apply styles to.
-                    </p>
-            
-                    <h4>Exhibit 1 - A CSS Rule</h4>
-            
-                    <pre>p {
-               margin-bottom: 12px;
-            }</pre>
-            
-                    <p>
-                      Here, the "p" is the selector (selects all &lt;p&gt; elements) and applies the margin-bottom style.
-                    </p>
-                    <p>
-                      To play, type in a CSS selector in the editor below to select the correct items on the table.If you get it right, you'll advance to the next level.
-                    </p>
-                    <p>
-                      Hover over the items on the table to see their HTML markup.
-                    </p>
-                    <p>
-                      Get help with selectors on the right! →
-                    </p>
-                    </div>
-        
-                    <div class="flex justify-end pt-2">
+                    <div class="flex justify-center pt-2">
                         <button
                             class="bottom-button focus:outline-none px-4 bg-teal-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">Ok, I'got it</button>
                     </div>
