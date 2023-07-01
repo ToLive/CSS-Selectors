@@ -1,5 +1,5 @@
 import { getElement } from '../../helpers/getElement';
-import './style.css';
+import './style.scss';
 import { ModalProps } from './types';
 
 export class Modal {

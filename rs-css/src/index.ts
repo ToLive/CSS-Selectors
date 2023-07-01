@@ -1,5 +1,5 @@
 import App from '@app/App';
-import './global.css';
+import './global.scss';
 
 const app = new App();
 

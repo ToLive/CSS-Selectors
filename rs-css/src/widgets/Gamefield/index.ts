@@ -1,7 +1,7 @@
 import { getElement } from "@shared/helpers/getElement";
 import { GameFieldProps, IGameField } from "./types";
 import { Modal } from "../../shared/ui/modal";
-import './style.css';
+import './style.scss';
 
 export class Gamefield implements IGameField {
     private gamefield: HTMLElement = document.createElement('div');;

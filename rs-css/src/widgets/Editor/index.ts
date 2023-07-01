@@ -1,7 +1,7 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state"
 import { placeholder } from '@codemirror/view';
-import './style.css';
+import './style.scss';
 import { editorContent } from "./lib/config";
 
 export class Editor {

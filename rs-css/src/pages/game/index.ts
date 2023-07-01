@@ -1,17 +1,13 @@
-import { Description } from "@widgets/Description";
 import { Editor } from "@widgets/Editor";
-import { Examples } from "@widgets/Examples";
 import { Footer } from "@widgets/Footer";
 import { Gamefield } from "@widgets/Gamefield";
 import { Header } from "@widgets/Header";
-import { Levelselect } from "@widgets/Levelselect";
+import { LevelSelect } from "@/widgets/LevelSelect";
+
+import './style.scss';
 
 export class Game {
-    private description = new Description();
-
     private editor = new Editor();
-
-    private examples = new Examples();
 
     private footer = new Footer();
 
@@ -19,21 +15,26 @@ export class Game {
 
     private header = new Header();
 
-    private levelselect = new Levelselect();
+    private levelSelect = new LevelSelect();
 
     public start(): void {
-        console.log('This is Game');
-
         this.buildField();
     }
 
     private buildField(): void {
-        document.body.append(this.header.getContainer());
-        document.body.append(this.gamefield.getContainer());
-        document.body.append(this.editor.getContainer());
-        /*document.body.append(this.footer.getHeader());
-        document.body.append(this.levelselect.getHeader());
-        document.body.append(this.description.getHeader());
-        document.body.append(this.examples.getHeader()); */
+        const firstCol: HTMLDivElement = document.createElement('div');
+        firstCol.className = 'h-full first-col';
+
+        const secondCol: HTMLDivElement = document.createElement('div');
+        secondCol.className = 'h-full second-col';
+
+        firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer());
+        secondCol.append(this.levelSelect.getContainer());
+
+        document.body.append(firstCol);
+        document.body.append(secondCol);
+
+        /* document.body.append(this.footer.getContainer());
+         */
     }
 }
