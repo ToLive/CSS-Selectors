@@ -12,17 +12,25 @@ export class LevelSelect {
 
     private currentLevelNumber: number;
 
+    // eslint-disable-next-line no-magic-numbers
+    private LEVEL_STEP = 1;
+
+    // eslint-disable-next-line no-magic-numbers
+    private MIN_LEVEL = 0;
+
+    private MAX_LEVEL = levels.length - this.LEVEL_STEP;
+
     constructor() {
         this.levelSelect.className = 'flex flex-col h-full';
 
         const levelsCnt = levels.length;
         const currentLevel = levels[0];
-        this.currentLevelNumber = 1;
+        this.currentLevelNumber = 0;
 
         const elements = `<div class="help-wrapper">
 
         <h1 class="level-header completed">
-          <span class="level-text">Level ${this.currentLevelNumber} of ${levelsCnt}</span>
+          <span class="level-text">Level ${this.currentLevelNumber + this.LEVEL_STEP} of ${levelsCnt}</span>
           <span class="checkmark"></span>
         </h1>
 
@@ -48,16 +56,22 @@ export class LevelSelect {
         this.nextLevelButton = getElement(this.levelSelect, '.next-level');
         this.previousLevelButton = getElement(this.levelSelect, '.previous-level');
 
-        const LEVEL_STEP = 1;
-
         this.nextLevelButton.addEventListener('click', () => {
-            this.setLevel(this.currentLevelNumber + LEVEL_STEP)
-            this.currentLevelNumber += LEVEL_STEP;
+            if (this.currentLevelNumber === this.MAX_LEVEL) {
+                return;
+            }
+
+            this.currentLevelNumber += this.LEVEL_STEP;
+            this.setLevel(this.currentLevelNumber);
         });
 
         this.previousLevelButton.addEventListener('click', () => {
-            this.setLevel(this.currentLevelNumber - LEVEL_STEP);
-            this.currentLevelNumber -= LEVEL_STEP;
+            if (this.currentLevelNumber === this.MIN_LEVEL) {
+                return;
+            }
+
+            this.currentLevelNumber -= this.LEVEL_STEP;
+            this.setLevel(this.currentLevelNumber);
         });
     }
 
@@ -68,10 +82,21 @@ export class LevelSelect {
     public setLevel(num: number): void {
         const level = levels[num];
 
-        const levelText = getElement(this.levelSelect, '.level-text');
-        levelText.innerHTML = `Level ${num} of ${levels.length}`;
+        const levelElements = {
+            levelText: () => getElement(this.levelSelect, '.level-text'),
+            selectorName: () => getElement(this.levelSelect, '.selector-name'),
+            title: () => getElement(this.levelSelect, '.title'),
+            syntax: () => getElement(this.levelSelect, '.syntax'),
+            hint: () => getElement(this.levelSelect, '.hint'),
+            examples: () => getElement(this.levelSelect, '.examples'),
+            example: () => getElement(this.levelSelect, '.example'),
+        };
 
-        const selectorName = getElement(this.levelSelect, '.selector-name');
-        selectorName.innerHTML = level.selectorName || '<h3 class="selector-name"></h3>';
+        levelElements.levelText().innerHTML = `Level ${num + this.LEVEL_STEP} of ${levels.length}`;
+        levelElements.selectorName().innerHTML = level.selectorName || '<h3 class="selector-name"></h3>';
+        levelElements.title().innerHTML = level.helpTitle;
+        levelElements.syntax().innerHTML = level.syntax;
+        levelElements.hint().innerHTML = level.help;
+        levelElements.examples().innerHTML = level.examples?.map((item) => `<div class="example">${item}</div>`).join('') || '';
     }
 }
