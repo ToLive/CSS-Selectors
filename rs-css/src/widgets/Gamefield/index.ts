@@ -1,6 +1,7 @@
 import { getElement } from "@shared/helpers/getElement";
 import { GameFieldProps, IGameField } from "./types";
 import { Modal } from "../../shared/ui/modal";
+import './style.css';
 
 export class Gamefield implements IGameField {
     private gamefield: HTMLElement = document.createElement('div');;
@@ -30,6 +31,22 @@ export class Gamefield implements IGameField {
                 ${this.props.buttonTitle}
             </button>
         `;
+
+        this.gamefield.innerHTML += `<div class="game-wrapper">
+        <div class="table-wrapper" style="/* transform: rotateX(20deg); */width: 397px;opacity: 1;">
+          <div class="table-surface"></div>
+          <div class="nametags"></div>
+          <div class="table">
+    <bento class="strobe" style="width: 100px;"></bento>
+    <plate class="" style="width: 100px;"></plate>
+    <bento class="strobe" style="width: 100px;"></bento>
+    </div>
+        </div>
+        <div class="table-edge" style="width: 397px; opacity: 1;">
+          <div class="table-leg"></div>
+          <div class="table-leg"></div>
+        </div>
+      </div>`;
 
         this.gamefield.append(modal.getModal());
 

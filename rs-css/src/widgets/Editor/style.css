@@ -1,0 +1,8 @@
+.editor-container {
+    display: flex;
+    height: 400px;
+    width: 80%;
+    overflow: auto;
+    border: 1px solid silver;
+    background-color: silver;
+}
