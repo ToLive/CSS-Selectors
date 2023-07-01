@@ -25,7 +25,7 @@ export class Gamefield implements IGameField {
         const modal = new Modal();
 
         this.gamefield.innerHTML = `
-            <h1 class="text-5xl text-gray-400 font-bold text-center">
+            <h1 class="level-title text-5xl text-gray-400 font-bold text-center">
                 ${this.props.title}
             </h1>            
             <button id="help-button" class="bg-zinc-900 hover:bg-zinc-700 text-gray-400 font-bold py-2 px-4 rounded-full mt-4"">
@@ -34,20 +34,20 @@ export class Gamefield implements IGameField {
         `;
 
         this.gamefield.innerHTML += `<div class="game-wrapper">
-        <div class="table-wrapper" style="/* transform: rotateX(20deg); */width: 397px;opacity: 1;">
-          <div class="table-surface"></div>
-          <div class="nametags"></div>
-          <div class="table">
-    <bento class="strobe" style="width: 100px;"></bento>
-    <plate class="" style="width: 100px;"></plate>
-    <bento class="strobe" style="width: 100px;"></bento>
-    </div>
+        <div class="table-wrapper w-fit" style="transform: rotateX(20deg); opacity: 1;">
+            <div class="table-surface"></div>
+            <div class="nametags"></div>
+            <div class="table">
+                <bento class="strobe" style="width: 100px;"></bento>
+                <plate class="" style="width: 100px;"></plate>
+                <bento class="strobe" style="width: 100px;"></bento>
+            </div>
         </div>
-        <div class="table-edge" style="width: 397px; opacity: 1;">
-          <div class="table-leg"></div>
-          <div class="table-leg"></div>
-        </div>
-      </div>`;
+        <div class="table-edge w-full" style="opacity: 1;">
+                <div class="table-leg"></div>
+                <div class="table-leg"></div>
+            </div>
+        </div>`;
 
         this.gamefield.append(modal.getModal());
 
