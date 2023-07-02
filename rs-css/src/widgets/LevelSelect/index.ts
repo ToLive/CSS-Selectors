@@ -4,7 +4,6 @@ import { Level } from "@features/levels/types";
 
 import './style.scss';
 
-
 export class LevelSelect {
     private levelSelect: HTMLElement = document.createElement('aside');
 
@@ -12,16 +11,12 @@ export class LevelSelect {
 
     private LEVEL_STEP = 1;
 
-    private MIN_LEVEL = 0;
-
-    private MAX_LEVEL = levels.length - this.LEVEL_STEP;
-
     constructor() {
         this.levelSelect.className = 'flex flex-col h-full';
 
         const elements = `<div class="help-wrapper">
 
-        <h1 class="level-header completed">
+        <h1 class="level-header">
             <span class="level-text"></span>
             <span class="checkmark"></span>
         </h1>
