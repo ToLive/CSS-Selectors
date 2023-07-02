@@ -8,6 +8,8 @@ import { editorPlaceholder } from "./lib/config";
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
 
+    private userAnswerInput: HTMLInputElement;
+
     private htmlViewer: EditorView;
 
     constructor() {
@@ -27,8 +29,8 @@ export class Editor {
         </div>`;
 
         const checkAnswerButton = getElement<HTMLButtonElement>(cssContainer, '.check-answer');
-        const userAnswerInput = getElement<HTMLInputElement>(cssContainer, '.user-css-input');
-        checkAnswerButton.addEventListener('click', () => checkAnswer(userAnswerInput.value));
+        this.userAnswerInput = getElement<HTMLInputElement>(cssContainer, '.user-css-input');
+        checkAnswerButton.addEventListener('click', () => checkAnswer(this.userAnswerInput.value));
 
         htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
 
@@ -41,8 +43,16 @@ export class Editor {
         });
     }
 
+    public checkAnswer(): void {
+        checkAnswer(this.userAnswerInput.value);
+    }
+
     public getContainer(): HTMLElement {
         return this.editor;
+    }
+
+    public clearInput(): void {
+        getElement<HTMLInputElement>(this.editor, '.user-css-input').value = '';
     }
 
     public setHtmlViewer(text: string): void {

@@ -3,13 +3,13 @@ import { levels } from "@features/levels";
 import { Level } from "@features/levels/types";
 
 import './style.scss';
+import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
+import { LEVEL_STEP } from "../../features/levels/lib/config";
 
 export class LevelSelect {
     private levelSelect: HTMLElement = document.createElement('aside');
 
     private currentLevelNumber = 0;
-
-    private LEVEL_STEP = 1;
 
     constructor() {
         this.levelSelect.className = 'flex flex-col h-full';
@@ -46,9 +46,12 @@ export class LevelSelect {
     }
 
     public setLevel(num: number = this.currentLevelNumber): void {
+        console.log('setlevel');
+
         const level = levels[num];
 
         const levelElements = {
+            checkmark: () => getElement(this.levelSelect, '.checkmark'),
             levelText: () => getElement(this.levelSelect, '.level-text'),
             selectorName: () => getElement(this.levelSelect, '.selector-name'),
             title: () => getElement(this.levelSelect, '.title'),
@@ -59,7 +62,7 @@ export class LevelSelect {
             levelTitle: () => getElement(document.body, '.level-title'),
         };
 
-        levelElements.levelText().innerHTML = `Level ${num + this.LEVEL_STEP} of ${levels.length}`;
+        levelElements.levelText().innerHTML = `Level ${num + LEVEL_STEP} of ${levels.length}`;
         levelElements.selectorName().innerHTML = level.selectorName || '<h3 class="selector-name"></h3>';
         levelElements.title().innerHTML = level.helpTitle;
         levelElements.syntax().innerHTML = level.syntax;
@@ -68,7 +71,25 @@ export class LevelSelect {
 
         levelElements.levelTitle().innerHTML = level.doThis;
 
+        const isLevelCompleted = (levelNum: number): boolean => {
+            console.log('level completed?', levelNum);
 
+            const levelData = getLevelStatus(levelNum);
+
+            console.log(levelData);
+
+            if (levelData) {
+                return levelData.solved;
+            };
+
+            return false;
+        }
+
+        if (isLevelCompleted(num)) {
+            levelElements.checkmark().classList.add('completed')
+        } else {
+            levelElements.checkmark().classList.remove('completed');
+        }
     }
 
     public getLevelData(): Level {

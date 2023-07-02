@@ -1,1 +1,1 @@
-export const editorPlaceholder = `Type in a CSS selector`;
+export const editorPlaceholder = `Type in a CSS selector or level number to skip`;

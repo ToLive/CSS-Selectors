@@ -5,14 +5,20 @@ import { getCurrentLevel } from "../../../shared/state/api/getCurrentLevel/getCu
 
 
 export const checkAnswer = (answer: string): void => {
-    const answerAsNum = Number(answer);
+    const answerAsNum = Number(answer) - LEVEL_STEP;
     const currentLevel = getCurrentLevel();
 
-    if (!Number.isNaN(answerAsNum) && answerAsNum >= MIN_LEVEL && answerAsNum <= MAX_LEVEL) {
+    if (!Number.isNaN(answerAsNum)) {
         console.log('Got number for level select');
-        setCurrentLevel(answerAsNum);
+
+        if (answerAsNum >= MIN_LEVEL && answerAsNum <= MAX_LEVEL) {
+            setCurrentLevel(answerAsNum);
+
+            return;
+        }
 
         return;
+
     }
 
     const rightAnswer = levels[currentLevel].selector;

@@ -5,7 +5,7 @@ import { Header } from "@widgets/Header";
 import { getElement } from "@shared/helpers/getElement";
 import { levels } from "@features/levels";
 import { Level } from "@features/levels/types";
-import { MAX_LEVEL, MIN_LEVEL } from "@features/levels/lib/config";
+import { LEVEL_STEP, MAX_LEVEL, MIN_LEVEL } from "@features/levels/lib/config";
 import { LevelSelect } from "@widgets/LevelSelect";
 
 import './style.scss';
@@ -13,6 +13,8 @@ import { getSavedLevels } from "@entities/localStorage";
 import { SavedLevel } from '@entities/localStorage/types';
 import { changeLevelStat } from "@shared/state/api/changeLevelStat/changeLevelStat";
 import { setCurrentLevel } from "@shared/state/api/setCurrentLevel/setCurrentLevel";
+import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
+import { EventDetail } from "../../shared/state/types";
 
 
 export class Game {
@@ -25,10 +27,6 @@ export class Game {
     private header = new Header();
 
     private levelSelect = new LevelSelect();
-
-    private currentLevelNumber = 0;
-
-    private LEVEL_STEP = 1;
 
     public start(): void {
         this.buildField();
@@ -50,7 +48,7 @@ export class Game {
         this.setLevelsState();
 
 
-        this.setLevelData(this.currentLevelNumber);
+        this.setLevelData(getCurrentLevel());
         this.addEventListeners();
         /* document.body.append(this.footer.getContainer());
          */
@@ -67,15 +65,27 @@ export class Game {
                 solved: false,
                 isHintUsed: false
             }));
+
+            return;
         }
+
+        lsData.forEach((level: SavedLevel) => {
+            changeLevelStat({
+                num: level.num,
+                solved: level.solved,
+                isHintUsed: level.isHintUsed
+            });
+        });
     }
 
     private setLevelData(level: number): void {
         this.levelSelect.setLevel(level);
-        const levelData: Level = levels[this.currentLevelNumber];
+        const levelData: Level = levels[getCurrentLevel()];
 
         this.gamefield.setTable(levelData.boardMarkup);
         this.editor.setHtmlViewer(`<div class="table">${levelData.boardMarkup}</div>`);
+
+        this.editor.clearInput();
 
         setCurrentLevel(level);
     }
@@ -86,26 +96,46 @@ export class Game {
         const nextLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.next-level');
         const previousLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.previous-level');
 
-        nextLevelButton.addEventListener('click', () => {
-            if (this.currentLevelNumber === MAX_LEVEL) {
-                return;
+        const changeLevel = (newLevel: number): void => {
+            if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
+                setCurrentLevel(newLevel);
+                this.setLevelData(newLevel);
             }
+        };
 
-            this.currentLevelNumber += this.LEVEL_STEP;
-            this.setLevelData(this.currentLevelNumber);
+        nextLevelButton.addEventListener('click', () => {
+            const currentLevel = getCurrentLevel();
+
+            changeLevel(currentLevel + LEVEL_STEP);
         });
 
         previousLevelButton.addEventListener('click', () => {
-            if (this.currentLevelNumber === MIN_LEVEL) {
-                return;
-            }
+            const currentLevel = getCurrentLevel();
 
-            this.currentLevelNumber -= this.LEVEL_STEP;
-            this.setLevelData(this.currentLevelNumber);
+            changeLevel(currentLevel - LEVEL_STEP);
         });
 
         window.addEventListener('rightAnswer', (event: Event) => {
-            console.log('rightAnswer', event);
-        })
+            const currentLevel = getCurrentLevel();
+
+            changeLevel(currentLevel + LEVEL_STEP);
+        });
+
+        window.addEventListener('changeLevel', (event: Event) => {
+            const eventData: Pick<EventDetail, "levelNum"> = (event as CustomEvent).detail as EventDetail;
+
+            const level: number = eventData.levelNum;
+
+            console.log(level);
+
+            changeLevel(level);
+        });
+
+
+        window.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.editor.checkAnswer();
+            }
+        });
     }
 }
