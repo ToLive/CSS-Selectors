@@ -1,8 +1,10 @@
-.editor-container {
-    display: flex;
-    height: 400px;
-    width: 80%;
-    overflow: auto;
-    border: 1px solid silver;
-    background-color: silver;
+.cm-content {
+    border-bottom-right-radius: 0.75rem;
+    background-color: white;
+    font-size: 16px;
+}
+
+.cm-gutters {
+    border-bottom-left-radius: 0.75rem;
+    background-color: rgba(153, 246, 228, var(--tw-bg-opacity)) !important;
 }

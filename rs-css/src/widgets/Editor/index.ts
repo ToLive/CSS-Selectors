@@ -1,32 +1,32 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state"
-import { placeholder } from '@codemirror/view';
 import './style.scss';
-import { editorContent } from "./lib/config";
+import { editorPlaceholder } from "./lib/config";
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
 
-    private cssEditor: EditorView;
-
     private htmlViewer: EditorView;
 
     constructor() {
-        this.editor.className = 'flex w-[90%] justify-center m-auto editor-container';
+        this.editor.className = 'flex flex-col xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
 
         const cssContainer: HTMLDivElement = document.createElement('div');
-        cssContainer.classList.add('css-editor', 'w-[50%]');
+        cssContainer.className = 'flex flex-col w-full bg-zinc-700 css-editor rounded-xl';
 
         const htmlContainer: HTMLDivElement = document.createElement('div');
-        htmlContainer.classList.add('html-viewer', 'w-[50%]');
+        htmlContainer.className = 'w-full m-2 bg-zinc-700 html-viewer rounded-xl';
+
+        cssContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
+        <div class="flex rounded-b-xl">
+            <span class="w-[30px] bg-teal-200 text-center leading-8 border-r rounded-bl-xl text-[13px]">1</span>
+            <input type="text" class="px-2 py-1 focus:outline-none grow" placeholder="${editorPlaceholder}"/>
+            <button class="w-[55px] text-center bg-teal-500 rounded-br-xl hover:bg-teal-300 transition duration-150 ease-out hover:ease-in">Enter</button>
+        </div>`;
+
+        htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
 
         this.editor.append(cssContainer, htmlContainer);
-
-        this.cssEditor = new EditorView({
-            doc: '',
-            extensions: [placeholder(editorContent), basicSetup],
-            parent: cssContainer,
-        });
 
         this.htmlViewer = new EditorView({
             doc: '',
