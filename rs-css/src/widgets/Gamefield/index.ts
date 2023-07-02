@@ -37,10 +37,7 @@ export class Gamefield implements IGameField {
         <div class="table-wrapper w-fit" style="transform: rotateX(20deg); opacity: 1;">
             <div class="table-surface"></div>
             <div class="nametags"></div>
-            <div class="table">
-                <bento class="strobe" style="width: 100px;"></bento>
-                <plate class="" style="width: 100px;"></plate>
-                <bento class="strobe" style="width: 100px;"></bento>
+            <div class="game-table">
             </div>
         </div>
         <div class="table-edge w-full" style="opacity: 1;">
@@ -57,5 +54,12 @@ export class Gamefield implements IGameField {
 
     public getContainer(): HTMLElement {
         return this.gamefield;
+    }
+
+    public setTable(content: string): void {
+        const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
+
+        console.log(content);
+        table.innerHTML = content;
     }
 }

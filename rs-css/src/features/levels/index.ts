@@ -13,10 +13,10 @@ export const levels: Level[] = [
             '<strong>p</strong> selects all <tag>p</tag> elements.',
         ],
         boardMarkup: `
-      <bento/>
-      <plate/>
-      <bento/>
-      `
+    <bento></bento>
+    <plate></plate>
+    <bento></bento>
+`
     },
     {
         doThis: "Select the fancy plate",
@@ -30,10 +30,10 @@ export const levels: Level[] = [
             '<strong>ul#long</strong> selects <tag>ul id="long"</tag>'
         ],
         boardMarkup: `
-      <plate id="fancy"/>
-      <plate/>
-      <bento/>
-      `
+    <plate id="fancy"></plate>
+    <plate></plate>
+    <bento></bento>
+`
     },
     {
         helpTitle: "Select an element inside another element",
@@ -47,12 +47,12 @@ export const levels: Level[] = [
             '<strong>#fancy&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="fancy"</strong>',
         ],
         boardMarkup: `
-      <bento/>
-      <plate>
-        <apple/>
-      </plate>
-      <apple/>
-      `
+    <bento></bento>
+    <plate>
+        <apple></apple>
+    </plate>
+    <apple></apple>
+`
     },
     {
         doThis: "Select the pickle on the fancy plate",
@@ -64,16 +64,16 @@ export const levels: Level[] = [
             '<strong>#cool&nbsp;span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id="cool"</strong>'
         ],
         boardMarkup: `
-      <bento>
-      <orange/>
-      </bento>
-      <plate id="fancy">
-        <pickle/>
-      </plate>
-      <plate>
-        <pickle/>
-      </plate>
-      `
+    <bento>
+        <orange/>
+    </bento>
+    <plate id="fancy">
+        <pickle></pickle>
+    </plate>
+    <plate>
+        <pickle></pickle>
+    </plate>
+`
     },
     {
         doThis: "Select the small apples",
@@ -86,13 +86,13 @@ export const levels: Level[] = [
             '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>'
         ],
         boardMarkup: `
-      <apple/>
-      <apple class="small"/>
-      <plate>
-        <apple class="small"/>
-      </plate>
-      <plate/>
-      `
+    <apple></apple>
+    <apple class="small"></apple>
+    <plate>
+        <apple class="small"></apple>
+    </plate>
+    <plate></plate>
+`
     },
     {
         doThis: "Select the small oranges",
@@ -105,17 +105,18 @@ export const levels: Level[] = [
             '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>'
         ],
         boardMarkup: `
-      <apple/>
-      <apple class="small"/>
-      <bento>
-        <orange class="small"/>
-      </bento>
-      <plate>
-        <orange/>
-      </plate>
-      <plate>
-        <orange class="small"/>
-      </plate>`
+    <apple></apple>
+    <apple class="small"></apple>
+    <bento>
+        <orange class="small"></orange>
+    </bento>
+    <plate>
+        <orange></orange>
+    </plate>
+    <plate>
+        <orange class="small"></orange>
+    </plate>
+`
     },
     {
         doThis: "Select the small oranges in the bentos",
@@ -124,20 +125,20 @@ export const levels: Level[] = [
         helpTitle: "You can do it...",
         help: 'Combine what you learned in the last few levels to solve this one!',
         boardMarkup: `
-      <bento>
-        <orange/>
-      </bento>
-      <orange class="small"/>
-      <bento>
-        <orange class="small"/>
-      </bento>
-      <bento>
-        <apple class="small"/>
-      </bento>
-      <bento>
-        <orange class="small"/>
-      </bento>
-      `
+    <bento>
+        <orange></orange>
+    </bento>
+    <orange class="small"></orange>
+    <bento>
+        <orange class="small"></orange>
+    </bento>
+    <bento>
+        <apple class="small"></apple>
+    </bento>
+    <bento>
+        <orange class="small"></orange>
+    </bento>
+`
     },
     {
         doThis: "Select all the plates and bentos",
@@ -151,20 +152,20 @@ export const levels: Level[] = [
             '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements'
         ],
         boardMarkup: `
-      <pickle class="small"/>
-      <pickle/>
-      <plate>
-        <pickle/>
-      </plate>
-      <bento>
-        <pickle/>
-      </bento>
-      <plate>
-        <pickle/>
-      </plate>
-      <pickle/>
-      <pickle class="small"/>
-      `
+    <pickle class="small"></pickle>
+    <pickle></pickle>
+    <plate>
+        <pickle></pickle>
+    </plate>
+    <bento>
+        <pickle></pickle>
+    </bento>
+    <plate>
+        <pickle></pickle>
+    </plate>
+    <pickle></pickle>
+    <pickle class="small"></pickle>
+`
     },
     {
         doThis: "Select all the things!",
@@ -177,16 +178,16 @@ export const levels: Level[] = [
             '<strong>p *</strong> selects any element inside all <tag>p</tag> elements.',
         ],
         boardMarkup: `
-      <apple/>
-      <plate>
-        <orange class="small" />
-      </plate>
-      <bento/>
-      <bento>
-        <orange/>
-      </bento>
-      <plate id="fancy"/>
-      `
+    <apple></apple>
+    <plate>
+        <orange class="small"></orange>
+    </plate>
+    <bento></bento>
+    <bento>
+        <orange></orange>
+    </bento>
+    <plate id="fancy"></plate>
+`
     },
     {
         doThis: "Select everything on a plate",
@@ -199,16 +200,17 @@ export const levels: Level[] = [
             '<strong>ul.fancy *</strong> selects every element inside all <tag>ul class="fancy"</tag> elements.'
         ],
         boardMarkup: `
-      <plate id="fancy">
-        <orange class="small"/>
-      </plate>
-      <plate>
-        <pickle/>
-      </plate>
-      <apple class="small"/>
-      <plate>
-        <apple/>
-      </plate>`
+    <plate id="fancy">
+        <orange class="small"></orange>
+    </plate>
+    <plate>
+        <pickle></pickle>
+    </plate>
+    <apple class="small"></apple>
+    <plate>
+        <apple></apple>
+    </plate>
+`
     },
     {
         doThis: "Select every apple that's next to a plate",
@@ -222,16 +224,16 @@ export const levels: Level[] = [
             '<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>'
         ],
         boardMarkup: `
-      <bento>
-        <apple class="small"/>
-      </bento>
-      <plate />
-      <apple class="small"/>
-      <plate />
-      <apple/>
-      <apple class="small"/>
-      <apple class="small"/>
-      `
+    <bento>
+        <apple class="small"></apple>
+    </bento>
+    <plate></plate>
+    <apple class="small"></apple>
+    <plate></plate>
+    <apple></apple>
+    <apple class="small"></apple>
+    <apple class="small"></apple>
+`
     },
     {
         selectorName: "General Sibling Selector",
@@ -244,18 +246,18 @@ export const levels: Level[] = [
             '<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'
         ],
         boardMarkup: `
-      <pickle/>
-      <bento>
-        <orange class="small"/>
-      </bento>
-      <pickle class="small"/>
-      <pickle/>
-      <plate>
-        <pickle/>
-      </plate>
-      <plate>
-        <pickle class="small"/>
-      </plate>
-      `
+    <pickle></pickle>
+    <bento>
+        <orange class="small"></orange>
+    </bento>
+    <pickle class="small"></pickle>
+    <pickle></pickle>
+    <plate>
+        <pickle></pickle>
+    </plate>
+    <plate>
+        <pickle class="small"></pickle>
+    </plate>
+`
     },
 ];

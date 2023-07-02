@@ -40,6 +40,6 @@ export class Editor {
     }
 
     public setHtmlViewer(text: string): void {
-        this.htmlViewer.setState(EditorState.create({ doc: text }))
+        this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup] }))
     }
 }

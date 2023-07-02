@@ -30,13 +30,13 @@
     width: 100%;
 }
 
-.table {
+.game-table {
     transform-style: preserve-3d;
     outline: solid 1px transparent;
     margin: 0px auto 0px auto;
     min-height: 142px;
     padding: 15px 15px 22px 15px;
-    display: inline-block;
+    display: flex;
     z-index: 999;
     position: relative;
     white-space: nowrap;
@@ -60,6 +60,7 @@
 
 bento {
     height: 100px;
+    width: 100px;
     background: brown;
     position: relative;
     border: solid 3px #711c12;
@@ -67,6 +68,7 @@ bento {
 }
 
 plate {
+    width: 100px;
     border-bottom: solid 5px #DDD;
     background: white;
     -webkit-border-radius: 100px;
@@ -109,4 +111,87 @@ bento:before {
     left: 0;
     border: solid 10px rgba(0, 0, 0, .1);
     border-width: 10px 0 0 0px;
+}
+
+orange,
+apple,
+pickle {
+    box-shadow: 0px 5px 0px rgba(0, 0, 0, .2);
+    display: inline-block;
+    margin: 0 10px;
+    height: 60px;
+}
+
+orange,
+apple {
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    border-style: solid;
+    border-width: 2px 4px 15px 4px;
+    height: 60px;
+    width: 60px;
+    position: relative;
+    margin: 20px 10px;
+
+    &.small {
+        height: 30px;
+        width: 30px;
+        border-width: 2px 4px 8px 4px;
+        margin: 30px 10px;
+    }
+}
+
+pickle {
+    background: #179837;
+    width: 25px;
+    border-radius: 30px;
+    display: inline-block;
+    position: relative;
+    border: solid 2px #025a18;
+    border-width: 2px 2px 9px 2px;
+    margin: 20px 10px;
+
+    &.small {
+        height: 40px;
+        width: 18px;
+        border-width: 1px 2px 6px 2px;
+        margin: 30px 10px;
+    }
+}
+
+apple {
+    background: #e41919;
+    border-color: #ab1212;
+}
+
+plate>pickle:only-child,
+bento>pickle:only-child {
+    top: calc(50% - 40px);
+    left: calc(50% - 10px);
+    z-index: 99999;
+    margin: 0;
+    position: absolute;
+}
+
+bento orange,
+bento apple,
+plate orange,
+plate apple {
+    left: calc(50% - 30px);
+    margin: 0;
+    position: absolute;
+}
+
+plate>apple:last-child,
+plate>orange:last-child,
+bento>apple:last-child,
+bento>orange:last-child {
+    top: calc(50% - 35px);
+}
+
+plate>.small:only-child,
+bento>.small:only-child {
+    position: absolute;
+    top: calc(50% - 15px);
+    margin: 0;
 }

@@ -48,7 +48,7 @@ module.exports = {
     rules: {
         'import/extensions': 'off',
         'import/prefer-default-export': 'off',
-        'no-magic-numbers': ['error'],
+        'no-magic-numbers': ['error', { "ignoreClassFieldInitialValues": true }],
         '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/array-type': [
             'error',
