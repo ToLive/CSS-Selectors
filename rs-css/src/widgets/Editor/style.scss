@@ -8,3 +8,17 @@
     border-bottom-left-radius: 0.75rem;
     background-color: rgba(153, 246, 228, var(--tw-bg-opacity)) !important;
 }
+
+.grogu-helper {
+    position: absolute;
+    width: 100px;
+    opacity: 0;
+    z-index: 50;
+    top: -60px;
+    transition: opacity 400ms ease-in-out;
+
+    &.show {
+        transition: opacity 200ms ease-in-out;
+        opacity: 1;
+    }
+}

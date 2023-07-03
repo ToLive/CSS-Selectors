@@ -25,10 +25,10 @@ export class Gamefield implements IGameField {
         const modal = new Modal();
 
         this.gamefield.innerHTML = `
-            <h1 class="level-title text-5xl text-gray-400 font-bold text-center">
+            <h1 class="level-title text-5xl font-bold text-center">
                 ${this.props.title}
             </h1>            
-            <button id="help-button" class="bg-zinc-900 hover:bg-zinc-700 text-gray-400 font-bold py-2 px-4 rounded-full mt-4"">
+            <button id="help-button" class="bg-zinc-900 hover:bg-zinc-700 font-bold py-2 px-4 rounded-full mt-4"">
                 ${this.props.buttonTitle}
             </button>
         `;
@@ -49,17 +49,20 @@ export class Gamefield implements IGameField {
         this.gamefield.append(modal.getModal());
 
         const helpButton: HTMLElement = getElement(this.gamefield, '#help-button');
-        helpButton.addEventListener('click', this.props.buttonHandler);
+        // helpButton.addEventListener('click', this.props.buttonHandler);
     }
 
     public getContainer(): HTMLElement {
         return this.gamefield;
     }
 
-    public setTable(content: string): void {
+    public setTable(content: string, selector: string): void {
         const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
 
-        console.log(content);
         table.innerHTML = content;
+
+        table.querySelectorAll(selector).forEach((item) => {
+            item.classList.add('strobe');
+        })
     }
 }

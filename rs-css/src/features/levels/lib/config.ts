@@ -2,8 +2,8 @@ import { Level } from "../types";
 
 export const levels: Level[] = [
     {
-        doThis: "Select the bento boxes",
-        selector: "bento",
+        doThis: "Select the Darth Vader",
+        selector: "vader",
         syntax: "A",
         helpTitle: "Select elements by their type",
         selectorName: "Type Selector",
@@ -13,14 +13,14 @@ export const levels: Level[] = [
             '<strong>p</strong> selects all <tag>p</tag> elements.',
         ],
         boardMarkup: `
-    <bento></bento>
-    <plate></plate>
-    <bento></bento>
+    <deathstar></deathstar>
+    <vader></vader>
+    <deathstar></deathstar>
 `
     },
     {
-        doThis: "Select the fancy plate",
-        selector: "#fancy",
+        doThis: "Select the Darth Vader with brain slug",
+        selector: "#slug",
         selectorName: "ID Selector",
         helpTitle: "Select elements with an ID",
         syntax: "#id",
@@ -30,33 +30,33 @@ export const levels: Level[] = [
             '<strong>ul#long</strong> selects <tag>ul id="long"</tag>'
         ],
         boardMarkup: `
-    <plate id="fancy"></plate>
-    <plate></plate>
-    <bento></bento>
+    <vader id="slug"></vader>
+    <vader></vader>
+    <deathstar></deathstar>
 `
     },
     {
-        helpTitle: "Select an element inside another element",
         selectorName: "Descendant Selector",
-        doThis: "Select the apple on the plate",
-        selector: "plate apple",
+        doThis: "Select the Darth Vader on the Death star",
+        selector: "deathstar vader",
+        helpTitle: "Select an element inside another element",
         syntax: "A&nbsp;&nbsp;B",
         help: "Selects all <strong>B</strong> inside of <strong>A</strong>. <strong>B</strong> is called a descendant because it is inside of another element.",
         examples: [
             '<strong>p&nbsp;&nbsp;strong</strong> selects all <tag>strong</tag> elements that are inside of any <tag>p</tag>',
-            '<strong>#fancy&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="fancy"</strong>',
+            '<strong>#slug&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="slug"</strong>',
         ],
         boardMarkup: `
-    <bento></bento>
-    <plate>
-        <apple></apple>
-    </plate>
-    <apple></apple>
+    <chewie></chewie>
+    <deathstar>
+        <vader></vader>
+    </deathstar>
+    <chewie></chewie>
 `
     },
     {
-        doThis: "Select the pickle on the fancy plate",
-        selector: "#fancy pickle",
+        doThis: "Select the Princess Leia in the rebel Millenium Falcon",
+        selector: "#rebel leia",
         helpTitle: "Combine the Descendant & ID Selectors",
         syntax: "#id&nbsp;&nbsp;A",
         help: 'You can combine any selector with the descendent selector.',
@@ -64,15 +64,15 @@ export const levels: Level[] = [
             '<strong>#cool&nbsp;span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id="cool"</strong>'
         ],
         boardMarkup: `
-    <bento>
-        <orange/>
-    </bento>
-    <plate id="fancy">
-        <pickle></pickle>
-    </plate>
-    <plate>
-        <pickle></pickle>
-    </plate>
+    <millenium-falcon>
+        <vader></vader>
+    </millenium-falcon>
+    <deathstar>
+        <vader></vader>        
+    </deathstar>
+    <millenium-falcon id="rebel">
+        <leia></leia>
+    </millenium-falcon>
 `
     },
     {
@@ -88,10 +88,10 @@ export const levels: Level[] = [
         boardMarkup: `
     <apple></apple>
     <apple class="small"></apple>
-    <plate>
+    <vader>
         <apple class="small"></apple>
-    </plate>
-    <plate></plate>
+    </vader>
+    <vader></vader>
 `
     },
     {
@@ -107,42 +107,42 @@ export const levels: Level[] = [
         boardMarkup: `
     <apple></apple>
     <apple class="small"></apple>
-    <bento>
+    <deathstar>
         <orange class="small"></orange>
-    </bento>
-    <plate>
+    </deathstar>
+    <vader>
         <orange></orange>
-    </plate>
-    <plate>
+    </vader>
+    <vader>
         <orange class="small"></orange>
-    </plate>
+    </vader>
 `
     },
     {
-        doThis: "Select the small oranges in the bentos",
-        selector: "bento orange.small",
+        doThis: "Select the small oranges in the deathstars",
+        selector: "deathstar orange.small",
         syntax: "Put your back into it!",
         helpTitle: "You can do it...",
         help: 'Combine what you learned in the last few levels to solve this one!',
         boardMarkup: `
-    <bento>
+    <deathstar>
         <orange></orange>
-    </bento>
+    </deathstar>
     <orange class="small"></orange>
-    <bento>
+    <deathstar>
         <orange class="small"></orange>
-    </bento>
-    <bento>
+    </deathstar>
+    <deathstar>
         <apple class="small"></apple>
-    </bento>
-    <bento>
+    </deathstar>
+    <deathstar>
         <orange class="small"></orange>
-    </bento>
+    </deathstar>
 `
     },
     {
-        doThis: "Select all the plates and bentos",
-        selector: "plate,bento",
+        doThis: "Select all the vaders and deathstars",
+        selector: "vader,deathstar",
         selectorName: "Comma Combinator",
         helpTitle: "Combine, selectors, with... commas!",
         syntax: "A, B",
@@ -154,15 +154,15 @@ export const levels: Level[] = [
         boardMarkup: `
     <pickle class="small"></pickle>
     <pickle></pickle>
-    <plate>
+    <vader>
         <pickle></pickle>
-    </plate>
-    <bento>
+    </vader>
+    <deathstar>
         <pickle></pickle>
-    </bento>
-    <plate>
+    </deathstar>
+    <vader>
         <pickle></pickle>
-    </plate>
+    </vader>
     <pickle></pickle>
     <pickle class="small"></pickle>
 `
@@ -179,42 +179,42 @@ export const levels: Level[] = [
         ],
         boardMarkup: `
     <apple></apple>
-    <plate>
+    <vader>
         <orange class="small"></orange>
-    </plate>
-    <bento></bento>
-    <bento>
+    </vader>
+    <deathstar></deathstar>
+    <deathstar>
         <orange></orange>
-    </bento>
-    <plate id="fancy"></plate>
+    </deathstar>
+    <vader id="slug"></vader>
 `
     },
     {
-        doThis: "Select everything on a plate",
-        selector: "plate *",
+        doThis: "Select everything on a vader",
+        selector: "vader *",
         syntax: "A&nbsp;&nbsp;*",
         helpTitle: "Combine the Universal Selector",
         help: 'This selects all elements inside of <strong>A</strong>.',
         examples: [
             '<strong>p *</strong> selects every element inside all <tag>p</tag> elements.',
-            '<strong>ul.fancy *</strong> selects every element inside all <tag>ul class="fancy"</tag> elements.'
+            '<strong>ul.slug *</strong> selects every element inside all <tag>ul class="slug"</tag> elements.'
         ],
         boardMarkup: `
-    <plate id="fancy">
+    <vader id="slug">
         <orange class="small"></orange>
-    </plate>
-    <plate>
+    </vader>
+    <vader>
         <pickle></pickle>
-    </plate>
+    </vader>
     <apple class="small"></apple>
-    <plate>
+    <vader>
         <apple></apple>
-    </plate>
+    </vader>
 `
     },
     {
-        doThis: "Select every apple that's next to a plate",
-        selector: "plate + apple",
+        doThis: "Select every apple that's next to a vader",
+        selector: "vader + apple",
         helpTitle: "Select an element that directly follows another element",
         selectorName: "Adjacent Sibling Selector",
         syntax: "A + B",
@@ -224,12 +224,12 @@ export const levels: Level[] = [
             '<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>'
         ],
         boardMarkup: `
-    <bento>
+    <deathstar>
         <apple class="small"></apple>
-    </bento>
-    <plate></plate>
+    </deathstar>
+    <vader></vader>
     <apple class="small"></apple>
-    <plate></plate>
+    <vader></vader>
     <apple></apple>
     <apple class="small"></apple>
     <apple class="small"></apple>
@@ -239,25 +239,25 @@ export const levels: Level[] = [
         selectorName: "General Sibling Selector",
         helpTitle: "Select elements that follows another element",
         syntax: "A ~ B",
-        doThis: "Select the pickles beside the bento",
-        selector: "bento ~ pickle",
+        doThis: "Select the pickles beside the deathstar",
+        selector: "deathstar ~ pickle",
         help: "You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.",
         examples: [
             '<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'
         ],
         boardMarkup: `
     <pickle></pickle>
-    <bento>
+    <deathstar>
         <orange class="small"></orange>
-    </bento>
+    </deathstar>
     <pickle class="small"></pickle>
     <pickle></pickle>
-    <plate>
+    <vader>
         <pickle></pickle>
-    </plate>
-    <plate>
+    </vader>
+    <vader>
         <pickle class="small"></pickle>
-    </plate>
+    </vader>
 `
     },
 ];

@@ -8,7 +8,7 @@ export class Header implements IHeader {
     private props: HeaderProps = {
         className: ['p-2', 'h-[100px]'],
         logo: Logo as string,
-        title: 'RS CSS Diner',
+        title: 'RS CSS Empire vs Rebels',
     };
 
     constructor() {

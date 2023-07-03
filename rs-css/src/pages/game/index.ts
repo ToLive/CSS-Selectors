@@ -15,6 +15,8 @@ import { changeLevelStat } from "@shared/state/api/changeLevelStat/changeLevelSt
 import { setCurrentLevel } from "@shared/state/api/setCurrentLevel/setCurrentLevel";
 import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
 import { EventDetail } from "../../shared/state/types";
+import { saveCurrentLevel } from "../../entities/localStorage/api/saveCurrentLevel";
+import { getSavedCurrentLevel } from "../../entities/localStorage/api/getSavedCurrentLevel";
 
 
 export class Game {
@@ -42,13 +44,20 @@ export class Game {
         firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer());
         secondCol.append(this.levelSelect.getContainer());
 
+
+
         document.body.append(firstCol);
+        this.generateStars(firstCol);
+
         document.body.append(secondCol);
+
+
 
         this.setLevelsState();
 
+        console.log('getSavedCurrentLevel()', getSavedCurrentLevel());
 
-        this.setLevelData(getCurrentLevel());
+        this.setLevelData(getSavedCurrentLevel());
         this.addEventListeners();
         /* document.body.append(this.footer.getContainer());
          */
@@ -82,12 +91,33 @@ export class Game {
         this.levelSelect.setLevel(level);
         const levelData: Level = levels[getCurrentLevel()];
 
-        this.gamefield.setTable(levelData.boardMarkup);
+        this.gamefield.setTable(levelData.boardMarkup, levelData.selector);
         this.editor.setHtmlViewer(`<div class="table">${levelData.boardMarkup}</div>`);
 
         this.editor.clearInput();
 
         setCurrentLevel(level);
+    }
+
+    private generateStars(placement: HTMLElement): void {
+        const stars = 1000;
+
+        function genStars(): number[] {
+            const setX = Number(placement.offsetHeight);
+            const newX = Math.floor(Math.random() * setX);
+            const setY = Number(placement.offsetWidth);
+            const newY = Math.floor(Math.random() * setY);
+            return [newX, newY];
+        }
+
+        for (let i = 0; i < stars; i += 1) {
+            const placeStars = genStars();
+            const theseStars = document.createElement("span");
+            theseStars.style.top = `${placeStars[0]}px`;
+            theseStars.style.left = `${placeStars[1]}px`;
+            theseStars.className = "star";
+            placement.append(theseStars);
+        }
     }
 
     private addEventListeners(): void {
@@ -100,6 +130,8 @@ export class Game {
             if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
                 setCurrentLevel(newLevel);
                 this.setLevelData(newLevel);
+
+                saveCurrentLevel();
             }
         };
 
@@ -115,7 +147,7 @@ export class Game {
             changeLevel(currentLevel - LEVEL_STEP);
         });
 
-        window.addEventListener('rightAnswer', (event: Event) => {
+        window.addEventListener('rightAnswer', () => {
             const currentLevel = getCurrentLevel();
 
             changeLevel(currentLevel + LEVEL_STEP);
@@ -137,5 +169,8 @@ export class Game {
                 this.editor.checkAnswer();
             }
         });
+
+        const helpButton: HTMLElement = getElement(this.gamefield.getContainer(), '#help-button');
+        helpButton.addEventListener('click', () => this.editor.showHelper(levels[getSavedCurrentLevel()].selector));
     }
 }
