@@ -6,6 +6,7 @@
     "scripts": {
         "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
         "build": "webpack --config ./webpack.config.js --env mode=prod",
+        "deploy": "npm run build && gh-pages -d dist -e rs-css -m \"feat: update deploy\"",
         "lint": "eslint . --ext .ts"
     },
     "repository": {
