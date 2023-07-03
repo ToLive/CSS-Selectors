@@ -11,10 +11,12 @@ export class Editor {
 
     private userAnswerInput: HTMLInputElement;
 
+    private checkAnswerButton: HTMLButtonElement;
+
     private htmlViewer: EditorView;
 
     constructor() {
-        this.editor.className = 'flex flex-col xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
+        this.editor.className = 'flex flex-col relative z-[100] xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
 
         const cssContainer: HTMLDivElement = document.createElement('div');
         cssContainer.className = 'flex flex-col relative z-[100] w-full bg-zinc-700 css-editor rounded-xl';
@@ -25,18 +27,27 @@ export class Editor {
         const htmlContainer: HTMLDivElement = document.createElement('div');
         htmlContainer.className = 'relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
 
-        cssContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
-        <div class="flex rounded-b-xl">
+        cssContainer.innerHTML = `<div class="p-2 relative z-[100] rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
+        <div class="flex relative z-[100] rounded-b-xl">
             <span class="w-[30px] bg-teal-200 text-center text-gray-600 leading-8 border-r rounded-bl-xl text-[13px]">1</span>
-            <input type="text" class="user-css-input px-2 py-1 focus:outline-none grow" placeholder="${editorPlaceholder}"/>
+            <input type="text" class="user-css-input blink-background px-2 py-1 focus:outline-none grow" placeholder="${editorPlaceholder}"/>
             <button class="check-answer w-[55px] text-center bg-teal-500 text-gray-600 rounded-br-xl hover:bg-teal-300 transition duration-150 ease-out hover:ease-in">Enter</button>
         </div>`;
 
         cssContainer.append(groguHelper);
 
-        const checkAnswerButton = getElement<HTMLButtonElement>(cssContainer, '.check-answer');
+        this.checkAnswerButton = getElement<HTMLButtonElement>(cssContainer, '.check-answer');
         this.userAnswerInput = getElement<HTMLInputElement>(cssContainer, '.user-css-input');
-        checkAnswerButton.addEventListener('click', () => checkAnswer(this.userAnswerInput.value));
+        this.userAnswerInput.addEventListener('input', () => {
+            if (this.userAnswerInput.value === '') {
+                this.checkAnswerButton.classList.remove('blink-enter');
+                this.userAnswerInput.classList.add('blink-background')
+            } else {
+                this.checkAnswerButton.classList.add('blink-enter');
+                this.userAnswerInput.classList.remove('blink-background');
+            }
+        });
+        this.checkAnswerButton.addEventListener('click', () => checkAnswer(this.userAnswerInput.value));
 
         htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
 
@@ -71,16 +82,23 @@ export class Editor {
         let counter = 0;
         this.userAnswerInput.value = '';
 
+        this.userAnswerInput.focus();
+
+        const COUNTER_STEP = 1;
+        const TYPING_DELAY = 200;
+
         const typer = setInterval(() => {
+            this.userAnswerInput.classList.remove('blink-background');
+            this.checkAnswerButton.classList.add('blink-enter');
             this.userAnswerInput.value += answer[counter];
-            counter += 1;
+            counter += COUNTER_STEP;
 
             if (counter === answer.length) {
                 clearInterval(typer);
 
                 this.removeHelper();
             }
-        }, 200);
+        }, TYPING_DELAY);
     }
 
     public removeHelper(): void {

@@ -22,3 +22,57 @@
         opacity: 1;
     }
 }
+
+.blink-background {
+    animation: blinkingBack 2s infinite;
+}
+
+@keyframes blinkingBack {
+    0% {
+        background-color: white;
+    }
+
+    25% {
+        background-color: rgb(173, 226, 220);
+    }
+
+    50% {
+        background-color: white;
+    }
+
+    75% {
+        background-color: rgb(173, 226, 220);
+        ;
+    }
+
+    100% {
+        background-color: white;
+    }
+}
+
+.blink-enter {
+    animation: blinkingEnter 2s infinite;
+}
+
+@keyframes blinkingEnter {
+    0% {
+        background-color: rgba(20, 184, 166, 1);
+    }
+
+    25% {
+        background-color: rgb(173, 226, 220);
+    }
+
+    50% {
+        background-color: rgba(20, 184, 166, 1);
+    }
+
+    75% {
+        background-color: rgb(173, 226, 220);
+        ;
+    }
+
+    100% {
+        background-color: rgba(20, 184, 166, 1);
+    }
+}
