@@ -76,8 +76,8 @@ export const levels: Level[] = [
 `
     },
     {
-        doThis: "Select the small apples",
-        selector: ".small",
+        doThis: "Select red Lightsaber",
+        selector: ".red",
         selectorName: "Class Selector",
         helpTitle: "Select elements by their class",
         syntax: ".classname",
@@ -85,13 +85,13 @@ export const levels: Level[] = [
         examples: [
             '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>'
         ],
-        boardMarkup: `
-    <apple></apple>
-    <apple class="small"></apple>
+        boardMarkup: `    
     <vader>
-        <apple class="small"></apple>
+        <lightsaber class="red"></lightsaber>
     </vader>
-    <vader></vader>
+    <luke>
+        <lightsaber></lightsaber>
+    </luke>
 `
     },
     {
@@ -152,19 +152,19 @@ export const levels: Level[] = [
             '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements'
         ],
         boardMarkup: `
-    <pickle class="small"></pickle>
-    <pickle></pickle>
+    <lightsaber class="small"></lightsaber>
+    <lightsaber></lightsaber>
     <vader>
-        <pickle></pickle>
+        <lightsaber></lightsaber>
     </vader>
     <deathstar>
-        <pickle></pickle>
+        <lightsaber></lightsaber>
     </deathstar>
     <vader>
-        <pickle></pickle>
+        <lightsaber></lightsaber>
     </vader>
-    <pickle></pickle>
-    <pickle class="small"></pickle>
+    <lightsaber></lightsaber>
+    <lightsaber class="small"></lightsaber>
 `
     },
     {
@@ -204,7 +204,7 @@ export const levels: Level[] = [
         <orange class="small"></orange>
     </vader>
     <vader>
-        <pickle></pickle>
+        <lightsaber></lightsaber>
     </vader>
     <apple class="small"></apple>
     <vader>
@@ -239,24 +239,24 @@ export const levels: Level[] = [
         selectorName: "General Sibling Selector",
         helpTitle: "Select elements that follows another element",
         syntax: "A ~ B",
-        doThis: "Select the pickles beside the deathstar",
-        selector: "deathstar ~ pickle",
+        doThis: "Select the lightsabers beside the deathstar",
+        selector: "deathstar ~ lightsaber",
         help: "You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.",
         examples: [
             '<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'
         ],
         boardMarkup: `
-    <pickle></pickle>
+    <lightsaber></lightsaber>
     <deathstar>
         <orange class="small"></orange>
     </deathstar>
-    <pickle class="small"></pickle>
-    <pickle></pickle>
+    <lightsaber class="small"></lightsaber>
+    <lightsaber></lightsaber>
     <vader>
-        <pickle></pickle>
+        <lightsaber></lightsaber>
     </vader>
     <vader>
-        <pickle class="small"></pickle>
+        <lightsaber class="small"></lightsaber>
     </vader>
 `
     },

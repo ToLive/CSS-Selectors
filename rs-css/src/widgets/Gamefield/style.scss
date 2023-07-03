@@ -144,15 +144,14 @@ vader {
     background-image: url('./assets/darth-vader-svgrepo-com.svg');
     background-size: contain;
 
-
     &#slug:before {
         content: "";
         display: block;
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 100px;
         transform: rotate(20deg);
         background: url('./assets/brain-slug-svgrepo-com.svg') no-repeat;
-        background-size: contain;
+        background-size: 50%;
         background-position: 40px -12px;
     }
 
@@ -206,13 +205,12 @@ leia {
     background-size: contain;
 }
 
-orange,
-apple,
-pickle {
-    box-shadow: 0px 5px 0px rgba(0, 0, 0, .2);
-    display: inline-block;
-    margin: 0 10px;
-    height: 60px;
+luke {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    background-image: url('./assets/luke-skywalker.png');
+    background-size: contain;
 }
 
 orange,
@@ -234,21 +232,28 @@ apple {
     }
 }
 
-pickle {
-    background: #179837;
-    width: 25px;
-    border-radius: 30px;
-    display: inline-block;
-    position: relative;
-    border: solid 2px #025a18;
-    border-width: 2px 2px 9px 2px;
-    margin: 20px 10px;
+lightsaber {
+    display: block;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: -25px;
+    rotate: -20deg;
+    background-image: url('./assets/lightsaber-green.svg');
+    background-size: contain;
+
+    &.red {
+        display: block;
+        position: absolute;
+        left: 40px;
+        rotate: 20deg;
+        background-image: url('./assets/lightsaber-red.svg');
+        background-size: contain;
+    }
 
     &.small {
-        height: 40px;
-        width: 18px;
-        border-width: 1px 2px 6px 2px;
-        margin: 30px 10px;
+        height: 50px;
+        width: 50px;
     }
 }
 
@@ -257,25 +262,9 @@ apple {
     border-color: #ab1212;
 }
 
-vader>pickle:only-child,
-deathstar>pickle:only-child {
-    top: calc(50% - 40px);
-    left: calc(50% - 10px);
-    z-index: 99999;
-    margin: 0;
-    position: absolute;
-}
 
-deathstar orange,
-deathstar apple,
-vader orange,
-vader apple {
-    left: calc(50% - 30px);
-    margin: 0;
-    position: absolute;
-}
 
-vader>apple:last-child,
+/*vader>apple:last-child,
 vader>orange:last-child,
 deathstar>apple:last-child,
 deathstar>orange:last-child {
@@ -287,4 +276,4 @@ deathstar>.small:only-child {
     position: absolute;
     top: calc(50% - 15px);
     margin: 0;
-}
+}*/
