@@ -47,9 +47,6 @@ export class Gamefield implements IGameField {
         </div>`;
 
         this.gamefield.append(modal.getModal());
-
-        const helpButton: HTMLElement = getElement(this.gamefield, '#help-button');
-        // helpButton.addEventListener('click', this.props.buttonHandler);
     }
 
     public getContainer(): HTMLElement {

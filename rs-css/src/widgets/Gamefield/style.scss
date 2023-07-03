@@ -104,6 +104,21 @@
     }
 }
 
+.remove-animation {
+    animation: remove .2s 1;
+    transform: translateY(-600px);
+}
+
+@keyframes remove {
+    0% {
+        transform: translateY(0px) rotate3d(0, 0, 0, 0deg);
+    }
+
+    100% {
+        transform: translateY(-600px) rotate3d(0, 0, 0, 0deg);
+    }
+}
+
 deathstar {
     height: 100px;
     width: 100px;
