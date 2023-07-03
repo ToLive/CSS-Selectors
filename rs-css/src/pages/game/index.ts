@@ -37,7 +37,7 @@ export class Game {
         container.className = 'flex';
 
         const firstCol: HTMLDivElement = document.createElement('div');
-        firstCol.className = 'h-full first-col';
+        firstCol.className = 'h-[100vh] first-col';
 
         const secondCol: HTMLDivElement = document.createElement('div');
         secondCol.className = 'relative z-[200] h-full second-col';

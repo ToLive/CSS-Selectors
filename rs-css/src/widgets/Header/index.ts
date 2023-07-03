@@ -6,7 +6,7 @@ export class Header implements IHeader {
     private header: HTMLElement = document.createElement('header');
 
     private props: HeaderProps = {
-        className: ['p-2', 'h-[100px]'],
+        className: ['p-2', 'h-[60px]'],
         logo: Logo as string,
         title: 'RS CSS Empire vs Rebels',
     };
