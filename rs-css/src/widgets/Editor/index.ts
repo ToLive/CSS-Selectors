@@ -34,7 +34,7 @@ export class Editor {
             <button class="check-answer w-[55px] text-center bg-teal-500 text-gray-600 rounded-br-xl hover:bg-teal-300 transition duration-150 ease-out hover:ease-in">Enter</button>
         </div>`;
 
-        cssContainer.append(groguHelper);
+        this.editor.append(groguHelper);
 
         this.checkAnswerButton = getElement<HTMLButtonElement>(cssContainer, '.check-answer');
         this.userAnswerInput = getElement<HTMLInputElement>(cssContainer, '.user-css-input');
