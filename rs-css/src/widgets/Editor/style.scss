@@ -14,11 +14,11 @@
     width: 100px;
     opacity: 0;
     z-index: 50;
-    top: -60px;
-    transition: opacity 400ms ease-in-out;
+    transition: all 400ms ease-in-out;
 
     &.show {
-        transition: opacity 200ms ease-in-out;
+        transition: all 200ms ease-in-out;
+        translate: 0 -60px;
         opacity: 1;
     }
 }

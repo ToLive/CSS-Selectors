@@ -23,7 +23,7 @@ export class Editor {
         groguHelper.src = Grogu as string;
 
         const htmlContainer: HTMLDivElement = document.createElement('div');
-        htmlContainer.className = 'w-full m-2 bg-zinc-700 html-viewer rounded-xl';
+        htmlContainer.className = 'relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
 
         cssContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
         <div class="flex rounded-b-xl">
