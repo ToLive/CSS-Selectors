@@ -131,6 +131,7 @@ export class Game {
         const previousLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.previous-level');
 
         const changeLevel = (newLevel: number): void => {
+            console.log('changeLevel');
             if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
                 setCurrentLevel(newLevel);
                 this.setLevelData(newLevel);
@@ -150,11 +151,11 @@ export class Game {
         });
 
         window.addEventListener('rightAnswer', () => {
-            const currentLevel = getCurrentLevel();
+            console.log('rightAnswer event');
 
-            // this.gamefield.getContainer
+            this.gamefield.animateRightAnswer(levels[getCurrentLevel()].selector);
 
-            // changeLevel(currentLevel + LEVEL_STEP);
+            setTimeout(() => changeLevel(getCurrentLevel() + LEVEL_STEP), 1000);
         });
 
         window.addEventListener('changeLevel', (event: Event) => {
@@ -184,7 +185,7 @@ export class Game {
 
         const helpButton: HTMLElement = getElement(this.gamefield.getContainer(), '#help-button');
         helpButton.addEventListener('click', () => {
-            const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: true };
+            const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: false };
 
             changeLevelStat(newLevelData);
             console.log('curLevel', getCurrentLevel());

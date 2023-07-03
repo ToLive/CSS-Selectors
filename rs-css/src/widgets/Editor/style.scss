@@ -54,6 +54,28 @@
     animation: blinkingEnter 2s infinite;
 }
 
+.shake-editor {
+    animation: shake .1s 5;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
 @keyframes blinkingEnter {
     0% {
         background-color: rgba(20, 184, 166, 1);

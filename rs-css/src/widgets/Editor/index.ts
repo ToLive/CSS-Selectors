@@ -5,6 +5,10 @@ import { getElement } from "@shared/helpers/getElement";
 import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
+import { changeLevelStat } from "../../shared/state/api/changeLevelStat/changeLevelStat";
+import { setCurrentLevel } from "../../shared/state/api/setCurrentLevel/setCurrentLevel";
+import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
+import { LEVEL_STEP } from "../../features/levels/lib/config";
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
@@ -47,7 +51,33 @@ export class Editor {
                 this.userAnswerInput.classList.remove('blink-background');
             }
         });
-        this.checkAnswerButton.addEventListener('click', () => checkAnswer(this.userAnswerInput.value));
+        this.checkAnswerButton.addEventListener('click', () => {
+            if (checkAnswer(this.userAnswerInput.value)) {
+                console.log('check ok');
+
+                const currentLevel = getCurrentLevel();
+
+                changeLevelStat({
+                    num: currentLevel,
+                    solved: true,
+                    isHintUsed: false,
+                });
+
+                // setCurrentLevel(currentLevel + LEVEL_STEP);
+
+                return;
+            };
+
+            const ANIM_DELAY = 1000;
+
+            if (this.editor.classList.contains('shake-editor')) {
+                this.editor.classList.remove('shake-editor');
+                this.editor.classList.add('shake-editor');
+            } else {
+                this.editor.classList.add('shake-editor');
+                setTimeout(() => this.editor.classList.remove('shake-editor'), ANIM_DELAY);
+            }
+        });
 
         htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
 
@@ -61,7 +91,31 @@ export class Editor {
     }
 
     public checkAnswer(): void {
-        checkAnswer(this.userAnswerInput.value);
+        if (checkAnswer(this.userAnswerInput.value)) {
+            console.log('check ok');
+
+            const currentLevel = getCurrentLevel();
+
+            changeLevelStat({
+                num: currentLevel,
+                solved: true,
+                isHintUsed: false,
+            });
+
+            // setCurrentLevel(currentLevel + LEVEL_STEP);
+
+            return;
+        };
+
+        const ANIM_DELAY = 1000;
+
+        if (this.editor.classList.contains('shake-editor')) {
+            this.editor.classList.remove('shake-editor');
+            this.editor.classList.add('shake-editor');
+        } else {
+            this.editor.classList.add('shake-editor');
+            setTimeout(() => this.editor.classList.remove('shake-editor'), ANIM_DELAY);
+        }
     }
 
     public getContainer(): HTMLElement {

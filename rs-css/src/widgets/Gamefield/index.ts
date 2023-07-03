@@ -62,4 +62,12 @@ export class Gamefield implements IGameField {
             item.classList.add('strobe');
         })
     }
+
+    public animateRightAnswer(selector: string): void {
+        const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
+
+        table.querySelectorAll(selector).forEach((item) => {
+            item.classList.add('remove-animation');
+        })
+    }
 }

@@ -4,7 +4,7 @@ import { setCurrentLevel } from "../../../shared/state/api/setCurrentLevel/setCu
 import { getCurrentLevel } from "../../../shared/state/api/getCurrentLevel/getCurrentLevel";
 
 
-export const checkAnswer = (answer: string): void => {
+export const checkAnswer = (answer: string): boolean => {
     const answerAsNum = Number(answer) - LEVEL_STEP;
     const currentLevel = getCurrentLevel();
 
@@ -14,21 +14,21 @@ export const checkAnswer = (answer: string): void => {
         if (answerAsNum >= MIN_LEVEL && answerAsNum <= MAX_LEVEL) {
             setCurrentLevel(answerAsNum);
 
-            return;
+            return false;
         }
 
-        return;
+        return false;
 
     }
 
     const rightAnswer = levels[currentLevel].selector;
     console.log(rightAnswer, answer);
 
-    changeLevelStat({
-        num: currentLevel,
-        solved: true,
-        isHintUsed: false,
-    });
+    if (rightAnswer === answer) {
+        console.log('answer is right');
 
-    setCurrentLevel(currentLevel + LEVEL_STEP)
+        return true;
+    }
+
+    return false;
 }

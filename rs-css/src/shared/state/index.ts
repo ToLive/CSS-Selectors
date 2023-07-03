@@ -1,5 +1,5 @@
 import onChange, { ApplyData } from "on-change";
-import { EventDetail, SavedLevel, State } from "./types";
+import { EventDetail, SavedLevel, State } from './types';
 
 const state: State = {
     currentLevel: 0,
@@ -12,7 +12,12 @@ const events = {
 }
 
 function generateEvent(path: string, value: unknown, previousValue?: unknown, applyData?: ApplyData): void {
-    if (path.includes('levelStat')) {
+    console.log('ev ', path, value, previousValue);
+
+    if (path.includes('levelStat')
+        && (value as SavedLevel).solved === true
+        /*&& previousValue
+        && (previousValue as SavedLevel).solved === false*/) {
         window.dispatchEvent(events.rightAnswer({ savedLevel: value as SavedLevel }));
     }
 
