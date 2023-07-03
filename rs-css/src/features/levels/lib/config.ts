@@ -95,8 +95,8 @@ export const levels: Level[] = [
 `
     },
     {
-        doThis: "Select the small oranges",
-        selector: "orange.small",
+        doThis: "Select the small Stormtroopers",
+        selector: "stormtrooper.small",
         helpTitle: "Combine the Class Selector",
         syntax: "A.className",
         help: 'You can combine the class selector with other selectors, like the type selector.',
@@ -105,44 +105,38 @@ export const levels: Level[] = [
             '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>'
         ],
         boardMarkup: `
-    <apple></apple>
-    <apple class="small"></apple>
-    <deathstar>
-        <orange class="small"></orange>
-    </deathstar>
-    <vader>
-        <orange></orange>
-    </vader>
-    <vader>
-        <orange class="small"></orange>
-    </vader>
+    <stormtrooper></stormtrooper>
+    <stormtrooper class="small"></stormtrooper>
+    <vader class="small"></vader>
+    <stormtrooper class="small"></stormtrooper>
+    <leia></leia>
 `
     },
     {
-        doThis: "Select the small oranges in the deathstars",
-        selector: "deathstar orange.small",
+        doThis: "Select small Darth Vader on the Deathstar",
+        selector: "deathstar vader.small",
         syntax: "Put your back into it!",
         helpTitle: "You can do it...",
         help: 'Combine what you learned in the last few levels to solve this one!',
         boardMarkup: `
     <deathstar>
-        <orange></orange>
+        <vader></vader>
     </deathstar>
-    <orange class="small"></orange>
+    <vader class="small"></vader>
     <deathstar>
-        <orange class="small"></orange>
-    </deathstar>
-    <deathstar>
-        <apple class="small"></apple>
+        <vader class="small"></vader>
     </deathstar>
     <deathstar>
-        <orange class="small"></orange>
+        <chewie class="small"></chewie>
+    </deathstar>
+    <deathstar>
+        <luke class="small"></luke>
     </deathstar>
 `
     },
     {
-        doThis: "Select all the vaders and deathstars",
-        selector: "vader,deathstar",
+        doThis: "Select all Lukes and BB-8",
+        selector: "luke,bb-8",
         selectorName: "Comma Combinator",
         helpTitle: "Combine, selectors, with... commas!",
         syntax: "A, B",
@@ -152,23 +146,16 @@ export const levels: Level[] = [
             '<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements'
         ],
         boardMarkup: `
-    <lightsaber class="small"></lightsaber>
-    <lightsaber></lightsaber>
-    <vader>
-        <lightsaber></lightsaber>
-    </vader>
-    <deathstar>
-        <lightsaber></lightsaber>
-    </deathstar>
-    <vader>
-        <lightsaber></lightsaber>
-    </vader>
-    <lightsaber></lightsaber>
-    <lightsaber class="small"></lightsaber>
+        <luke></luke>
+        <luke></luke>
+        <luke></luke>
+        <vader></vader>
+        <bb-8></bb-8>
+        <bb-8></bb-8>    
 `
     },
     {
-        doThis: "Select all the things!",
+        doThis: "Select all!",
         selector: "*",
         selectorName: "The Universal Selector",
         helpTitle: "You can select everything!",
@@ -178,20 +165,16 @@ export const levels: Level[] = [
             '<strong>p *</strong> selects any element inside all <tag>p</tag> elements.',
         ],
         boardMarkup: `
-    <apple></apple>
-    <vader>
-        <orange class="small"></orange>
-    </vader>
-    <deathstar></deathstar>
-    <deathstar>
-        <orange></orange>
-    </deathstar>
-    <vader id="slug"></vader>
+    <chewie></chewie>
+    <leia></leia>
+    <millenium-falcon></millenium-falcon>
+    <vader></vader>
+    <stormtrooper id="slug"></stormtrooper>
 `
     },
     {
-        doThis: "Select everything on a vader",
-        selector: "vader *",
+        doThis: "Select everybody on the Millenium-falcons",
+        selector: "millenium-falcon *",
         syntax: "A&nbsp;&nbsp;*",
         helpTitle: "Combine the Universal Selector",
         help: 'This selects all elements inside of <strong>A</strong>.',
@@ -200,64 +183,21 @@ export const levels: Level[] = [
             '<strong>ul.slug *</strong> selects every element inside all <tag>ul class="slug"</tag> elements.'
         ],
         boardMarkup: `
-    <vader id="slug">
-        <orange class="small"></orange>
-    </vader>
-    <vader>
-        <lightsaber></lightsaber>
-    </vader>
-    <apple class="small"></apple>
-    <vader>
-        <apple></apple>
-    </vader>
-`
-    },
-    {
-        doThis: "Select every apple that's next to a vader",
-        selector: "vader + apple",
-        helpTitle: "Select an element that directly follows another element",
-        selectorName: "Adjacent Sibling Selector",
-        syntax: "A + B",
-        help: "This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. Elements that follow one another are called siblings. They're on the same level, or depth. <br/><br/>In the HTML markup for this level, elements that have the same indentation are siblings.",
-        examples: [
-            '<strong>p + .intro</strong> selects every element with <strong>class="intro"</strong> that directly follows a <tag>p</tag>',
-            '<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>'
-        ],
-        boardMarkup: `
+    <millenium-falcon>
+        <leia></leia>
+    </millenium-falcon>
+    <millenium-falcon>
+        <c3po></c3po>            
+    </millenium-falcon>
+    <millenium-falcon>
+        <luke></luke>
+    </millenium-falcon>
     <deathstar>
-        <apple class="small"></apple>
+        <vader class="small"></vader>
     </deathstar>
-    <vader></vader>
-    <apple class="small"></apple>
-    <vader></vader>
-    <apple></apple>
-    <apple class="small"></apple>
-    <apple class="small"></apple>
-`
-    },
-    {
-        selectorName: "General Sibling Selector",
-        helpTitle: "Select elements that follows another element",
-        syntax: "A ~ B",
-        doThis: "Select the lightsabers beside the deathstar",
-        selector: "deathstar ~ lightsaber",
-        help: "You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.",
-        examples: [
-            '<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>'
-        ],
-        boardMarkup: `
-    <lightsaber></lightsaber>
     <deathstar>
-        <orange class="small"></orange>
+        <stormtrooper class="small"></stormtrooper>
     </deathstar>
-    <lightsaber class="small"></lightsaber>
-    <lightsaber></lightsaber>
-    <vader>
-        <lightsaber></lightsaber>
-    </vader>
-    <vader>
-        <lightsaber class="small"></lightsaber>
-    </vader>
 `
     },
 ];
