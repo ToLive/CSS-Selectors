@@ -22,6 +22,13 @@ const baseConfig = {
                     filename: 'images/[name][ext]',
                 },
             },
+            {
+                test: /\.png$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext]',
+                },
+            },
         ],
 
     },
