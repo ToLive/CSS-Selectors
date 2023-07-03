@@ -1,6 +1,5 @@
 import onChange, { ApplyData } from "on-change";
-import { EventDetail, State } from "./types";
-import { SavedLevel } from "../../entities/localStorage/types";
+import { EventDetail, SavedLevel, State } from "./types";
 
 const state: State = {
     currentLevel: 0,

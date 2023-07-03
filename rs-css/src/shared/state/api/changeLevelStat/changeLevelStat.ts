@@ -1,6 +1,7 @@
-import { SavedLevel } from "@entities/localStorage/types";
+
 import { watchedState } from "../..";
-import { setLevelStatus } from "../../../../entities/localStorage/api/setLevelsStatus";
+import { SavedLevel } from "../../types";
+import { setLevelStatus } from "../setLevelsStatus/setLevelsStatus";
 
 export const changeLevelStat = (levelData: SavedLevel): void => {
     if (watchedState.levelStat) {
