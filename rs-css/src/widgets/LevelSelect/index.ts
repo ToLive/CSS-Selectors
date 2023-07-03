@@ -47,9 +47,14 @@ export class LevelSelect {
 
         this.levelSelect.innerHTML = elements;
 
+        this.buildMenu();
+    }
+
+    private buildMenu(): void {
         const menuLevelsList = getSavedLevels()?.map((level) => `
         <a class="level w-full flex cursor-pointer my-2 hover:font-bold ${level.num === getCurrentLevel() ? 'active-level' : ''}" data-id="${level.num}">
-            <span class="checkmark ${level.solved ? "completed" : ''} ${level.isHintUsed ? "hint-used" : ''}"></span>
+            <span class="checkmark ${level.solved ? "completed" : ''}"></span>
+            <span class="checkmark ${level.solved && !level.isHintUsed ? "completed" : ''}"></span>
             <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${level.num + 1}</div>
             <span class="level-name ml-2 text-xl  hover:text-bold">${levels[level.num].syntax || ''}</span>
         </a>`).join('');
@@ -94,6 +99,7 @@ export class LevelSelect {
         resetProgressButton.addEventListener('click', () => {
             resetProgress();
             menuBox.classList.remove('is-active');
+            menuToggle.classList.remove('open');
         });
     }
 

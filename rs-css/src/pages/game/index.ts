@@ -26,7 +26,7 @@ export class Game {
 
     private header = new Header();
 
-    private levelSelect = new LevelSelect();
+    private levelSelect!: LevelSelect;
 
     public start(): void {
         this.buildField();
@@ -39,9 +39,12 @@ export class Game {
         const secondCol: HTMLDivElement = document.createElement('div');
         secondCol.className = 'relative z-[200] h-full second-col';
 
+        this.setLevelsState();
+
+        this.levelSelect = new LevelSelect();
+
         firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer());
         secondCol.append(this.levelSelect.getContainer());
-
 
 
         document.body.append(firstCol);
@@ -52,7 +55,6 @@ export class Game {
 
 
 
-        this.setLevelsState();
 
         console.log('getSavedCurrentLevel()', getCurrentLevel());
 

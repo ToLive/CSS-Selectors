@@ -9,6 +9,7 @@ import { changeLevelStat } from "../../shared/state/api/changeLevelStat/changeLe
 import { setCurrentLevel } from "../../shared/state/api/setCurrentLevel/setCurrentLevel";
 import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
 import { LEVEL_STEP } from "../../features/levels/lib/config";
+import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
@@ -60,7 +61,7 @@ export class Editor {
                 changeLevelStat({
                     num: currentLevel,
                     solved: true,
-                    isHintUsed: false,
+                    isHintUsed: getLevelStatus(currentLevel)?.isHintUsed || false,
                 });
 
                 // setCurrentLevel(currentLevel + LEVEL_STEP);
