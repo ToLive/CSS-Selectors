@@ -33,6 +33,9 @@ export class Game {
     }
 
     private buildField(): void {
+        const container: HTMLDivElement = document.createElement('div');
+        container.className = 'flex';
+
         const firstCol: HTMLDivElement = document.createElement('div');
         firstCol.className = 'h-full first-col';
 
@@ -43,25 +46,23 @@ export class Game {
 
         this.levelSelect = new LevelSelect();
 
-        firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer());
+        firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer(), this.footer.getContainer());
         secondCol.append(this.levelSelect.getContainer());
 
 
-        document.body.append(firstCol);
+        container.append(firstCol);
+
+
+        container.append(secondCol);
+
+
+        document.body.append(container);
 
         this.generateStars(document.body);
 
-        document.body.append(secondCol);
-
-
-
-
-        console.log('getSavedCurrentLevel()', getCurrentLevel());
-
         this.setLevelData(getCurrentLevel());
         this.addEventListeners();
-        /* document.body.append(this.footer.getContainer());
-         */
+
     }
 
     private setLevelsState(): void {
