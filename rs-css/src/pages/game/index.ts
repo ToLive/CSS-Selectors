@@ -37,7 +37,7 @@ export class Game {
         firstCol.className = 'h-full first-col';
 
         const secondCol: HTMLDivElement = document.createElement('div');
-        secondCol.className = 'h-full second-col';
+        secondCol.className = 'relative z-[200] h-full second-col';
 
         firstCol.append(this.header.getContainer(), this.gamefield.getContainer(), this.editor.getContainer());
         secondCol.append(this.levelSelect.getContainer());
@@ -45,7 +45,8 @@ export class Game {
 
 
         document.body.append(firstCol);
-        this.generateStars(firstCol);
+
+        this.generateStars(document.body);
 
         document.body.append(secondCol);
 
@@ -98,7 +99,7 @@ export class Game {
     }
 
     private generateStars(placement: HTMLElement): void {
-        const stars = 1000;
+        const stars = 600;
 
         function genStars(): number[] {
             const setX = Number(placement.offsetHeight);
@@ -161,7 +162,16 @@ export class Game {
 
             const level: number = eventData.levelNum;
 
-            console.log(level);
+            const highlightedItem = getElement(this.levelSelect.getContainer(), '.active-level');
+
+            if (highlightedItem) {
+                highlightedItem.classList.remove('active-level');
+            }
+
+            const menuCurrentLevel = getElement(this.levelSelect.getContainer(), `.level[data-id="${level}"]`);
+            console.log(menuCurrentLevel);
+
+            menuCurrentLevel.classList.add('active-level');
 
             changeLevel(level);
         });
@@ -174,7 +184,7 @@ export class Game {
 
         const helpButton: HTMLElement = getElement(this.gamefield.getContainer(), '#help-button');
         helpButton.addEventListener('click', () => {
-            const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true };
+            const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: true };
 
             changeLevelStat(newLevelData);
             console.log('curLevel', getCurrentLevel());
