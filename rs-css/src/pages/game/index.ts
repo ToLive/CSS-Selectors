@@ -153,7 +153,7 @@ export class Game {
 
             // this.gamefield.getContainer
 
-            changeLevel(currentLevel + LEVEL_STEP);
+            // changeLevel(currentLevel + LEVEL_STEP);
         });
 
         window.addEventListener('changeLevel', (event: Event) => {
@@ -166,7 +166,6 @@ export class Game {
             changeLevel(level);
         });
 
-
         window.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.editor.checkAnswer();
@@ -178,7 +177,7 @@ export class Game {
             const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true };
 
             changeLevelStat(newLevelData);
-            console.log(getCurrentLevel());
+            console.log('curLevel', getCurrentLevel());
 
             this.editor.showHelper(levels[getCurrentLevel()].selector)
         });

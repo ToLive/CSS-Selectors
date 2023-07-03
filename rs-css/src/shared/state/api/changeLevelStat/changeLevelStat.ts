@@ -1,12 +1,12 @@
 
 import { watchedState } from "../..";
 import { SavedLevel } from "../../types";
-import { setLevelStatus } from "../setLevelsStatus/setLevelsStatus";
+import { saveLevelStatus } from "../saveLevelStatus/saveLevelStatus";
 
 export const changeLevelStat = (levelData: SavedLevel): void => {
     if (watchedState.levelStat) {
         watchedState.levelStat[levelData.num] = levelData;
 
-        setLevelStatus();
+        saveLevelStatus();
     }
 }
