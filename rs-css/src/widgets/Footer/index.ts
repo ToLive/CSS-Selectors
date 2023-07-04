@@ -10,7 +10,7 @@ export class Footer {
         footerLogo.src = Rslogo as string;
 
         this.footer.innerHTML = `
-        <footer class="flex h-[50px] justify-center items-center">
+        <footer class="flex h-[50px] justify-center items-center self-end">
         <p class="made-by text-zinc-400">
             Made by <a href="https://github.com/ToLive">ToLive </a>
         </p>
