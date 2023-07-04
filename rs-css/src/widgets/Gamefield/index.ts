@@ -31,19 +31,19 @@ export class Gamefield implements IGameField {
             </button>
         `;
 
-        this.gamefield.innerHTML += `<div class="game-wrapper">
+        this.gamefield.innerHTML += `<div class="game-wrapper">        
         <div class="table-wrapper w-fit" style="transform: rotateX(20deg); opacity: 1;">
             <div class="table-surface"></div>
-            <div class="nametags"></div>
-            <div class="tooltip">
-                <span class="tooltip-text"></span>
-            </div>
+            <div class="nametags"></div>            
             <div class="game-table">
             </div>
         </div>
         <div class="table-edge w-full" style="opacity: 1;">
                 <div class="table-leg"></div>
                 <div class="table-leg"></div>
+        </div>
+        <div class="tooltip">
+                <span class="tooltip-text"></span>
             </div>
         </div>`;
 
@@ -68,6 +68,15 @@ export class Gamefield implements IGameField {
 
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseenter', (event) => {
+                const elemClone = document.createElement('div');
+                elemClone.innerHTML = (event.target as HTMLElement).outerHTML;
+                elemClone.querySelectorAll('*').forEach(element => {
+                    element.classList.remove('strobe');
+                    element.classList.remove('backdrop');
+                });
+                tooltiptext.textContent = elemClone.innerHTML.replace(/class=""/g, '').replace(/ >/g, '>');;
+                tooltip.classList.add('show');
+
                 item.classList.add('backdrop');
             });
 

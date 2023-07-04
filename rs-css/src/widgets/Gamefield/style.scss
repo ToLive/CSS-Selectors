@@ -168,29 +168,38 @@ millenium-falcon {
 
     chewie {
         display: block;
-        width: 100px;
-        height: 100px;
+        position: relative;
+        left: 25px;
+        top: 25px;
+        width: 50px;
+        height: 50px;
         background: url('./assets/chewbacca-svgrepo-com.svg') no-repeat;
-        background-size: 50%;
-        background-position: 25px 20px;
+        background-size: 100%;
+        background-position: 0 0;
     }
 
     leia {
         display: block;
-        width: 100px;
-        height: 100px;
+        position: relative;
+        left: 25px;
+        top: 25px;
+        width: 50px;
+        height: 50px;
         background: url('./assets/princess-leia-svgrepo-com.svg') no-repeat;
-        background-size: 50%;
-        background-position: 25px 20px;
+        background-size: 100%;
+        background-position: 0 0;
     }
 
     luke {
         display: block;
-        width: 100px;
-        height: 100px;
+        position: relative;
+        left: 25px;
+        top: 25px;
+        width: 50px;
+        height: 50px;
         background: url('./assets/luke-skywalker.png') no-repeat;
-        background-size: 50%;
-        background-position: 25px 20px;
+        background-size: 100%;
+        background-position: 0 0;
     }
 
     c3po {
@@ -207,11 +216,14 @@ millenium-falcon {
 
     vader {
         display: block;
-        width: 100px;
-        height: 100px;
+        position: relative;
+        left: 25px;
+        top: 25px;
+        width: 50px;
+        height: 50px;
         background: url('./assets/darth-vader-svgrepo-com.svg') no-repeat;
-        background-size: 50%;
-        background-position: 25px 20px;
+        background-size: 100%;
+        background-position: 0 0;
     }
 }
 
@@ -332,25 +344,25 @@ stormtrooper {
 
 .tooltip {
     position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+    display: block;
+    visibility: hidden;
 
-    &.tooltiptext {
-        visibility: hidden;
-        width: 120px;
+    .tooltip-text {
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
         background-color: black;
         color: #fff;
         text-align: center;
         border-radius: 6px;
         padding: 5px 0;
-
-        /* Position the tooltip */
         position: absolute;
         z-index: 1;
+    }
 
-        &.show {
-            visibility: visible;
-        }
+    &.show {
+        visibility: visible;
     }
 }
 
