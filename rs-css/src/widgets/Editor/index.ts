@@ -1,14 +1,13 @@
 import { EditorView, basicSetup } from "codemirror";
-import { EditorState } from "@codemirror/state"
+import { EditorState } from "@codemirror/state";
+import { html } from "@codemirror/lang-html";
 import './style.scss';
 import { getElement } from "@shared/helpers/getElement";
 import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
 import { changeLevelStat } from "../../shared/state/api/changeLevelStat/changeLevelStat";
-import { setCurrentLevel } from "../../shared/state/api/setCurrentLevel/setCurrentLevel";
 import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
-import { LEVEL_STEP } from "../../features/levels/lib/config";
 import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
 
 export class Editor {
@@ -17,6 +16,8 @@ export class Editor {
     private userAnswerInput: HTMLInputElement;
 
     private checkAnswerButton: HTMLButtonElement;
+
+    private htmlContainer: HTMLDivElement;
 
     private htmlViewer: EditorView;
 
@@ -29,8 +30,8 @@ export class Editor {
         groguHelper.className = 'grogu-helper';
         groguHelper.src = Grogu as string;
 
-        const htmlContainer: HTMLDivElement = document.createElement('div');
-        htmlContainer.className = 'relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
+        this.htmlContainer = document.createElement('div');
+        this.htmlContainer.className = 'relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
 
         cssContainer.innerHTML = `<div class="p-2 relative z-[100] rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
         <div class="flex relative z-[100] rounded-b-xl">
@@ -54,8 +55,6 @@ export class Editor {
         });
         this.checkAnswerButton.addEventListener('click', () => {
             if (checkAnswer(this.userAnswerInput.value)) {
-                console.log('check ok');
-
                 const currentLevel = getCurrentLevel();
 
                 changeLevelStat({
@@ -80,21 +79,19 @@ export class Editor {
             }
         });
 
-        htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
+        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
 
-        this.editor.append(cssContainer, htmlContainer);
+        this.editor.append(cssContainer, this.htmlContainer);
 
         this.htmlViewer = new EditorView({
             doc: '',
             extensions: [basicSetup],
-            parent: htmlContainer,
+            parent: this.htmlContainer,
         });
     }
 
     public checkAnswer(): void {
         if (checkAnswer(this.userAnswerInput.value)) {
-            console.log('check ok');
-
             const currentLevel = getCurrentLevel();
 
             changeLevelStat({
@@ -128,7 +125,15 @@ export class Editor {
     }
 
     public setHtmlViewer(text: string): void {
-        this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup] }))
+        this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup, html()] }))
+
+        this.htmlContainer.querySelectorAll('.cm-line').forEach((line) => {
+            line.addEventListener('mouseover', (e) => {
+                if (line.textContent?.includes(' </')) {
+                    const tag = line.textContent.replace(' </', '').replace('>', '');
+                }
+            })
+        });
     }
 
     public showHelper(answer: string): void {

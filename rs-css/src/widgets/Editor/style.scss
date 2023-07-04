@@ -23,6 +23,11 @@
     }
 }
 
+.cm-line:hover {
+    font-weight: 700;
+    background-color: rgb(139, 226, 226);
+}
+
 .blink-background {
     animation: blinkingBack 2s infinite;
 }

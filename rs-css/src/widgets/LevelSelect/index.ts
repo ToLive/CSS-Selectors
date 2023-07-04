@@ -130,8 +130,6 @@ export class LevelSelect {
     }
 
     public setLevel(num: number = this.currentLevelNumber): void {
-        console.log('setlevel');
-
         const level = levels[num];
 
         const levelElements = {
@@ -156,11 +154,7 @@ export class LevelSelect {
         levelElements.levelTitle().innerHTML = level.doThis;
 
         const isLevelCompleted = (levelNum: number): boolean => {
-            console.log('level completed?', levelNum);
-
             const levelData = getLevelStatus(levelNum);
-
-            console.log(levelData);
 
             if (levelData) {
                 return levelData.solved;

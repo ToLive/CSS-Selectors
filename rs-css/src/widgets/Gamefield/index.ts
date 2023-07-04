@@ -12,8 +12,6 @@ export class Gamefield implements IGameField {
         className: ['flex', 'flex-col', 'justify-center', 'items-center'],
         buttonTitle: "Help, I'm stuck!",
         buttonHandler: (event): void => {
-            console.log(event);
-
             const modal = getElement(this.gamefield, '.main-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -70,14 +68,12 @@ export class Gamefield implements IGameField {
 
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseover', (event) => {
-                console.log((event.currentTarget as Element).outerHTML);
                 item.classList.add('backdrop');
                 tooltip.classList.add('show');
                 // tooltiptext.textContent = (event.currentTarget as Element).outerHTML;
             });
 
             item.addEventListener('mouseleave', (event) => {
-                console.log(event.target);
                 item.classList.remove('backdrop');
                 tooltip.classList.remove('show');
             });

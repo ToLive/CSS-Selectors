@@ -12,12 +12,9 @@ const events = {
 }
 
 function generateEvent(path: string, value: unknown, previousValue?: unknown, applyData?: ApplyData): void {
-    console.log('ev ', path, value, previousValue);
-
     if (path.includes('levelStat')
         && (value as SavedLevel).solved === true
-        /*&& previousValue
-        && (previousValue as SavedLevel).solved === false*/) {
+    ) {
         window.dispatchEvent(events.rightAnswer({ savedLevel: value as SavedLevel }));
     }
 

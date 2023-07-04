@@ -71,8 +71,6 @@ export class Game {
         const lsData: SavedLevel[] | null = getSavedLevels();
 
         if (lsData === null) {
-            console.log('new game, fill empty data');
-
             levels.map((_, idx) => changeLevelStat({
                 num: idx,
                 solved: false,
@@ -136,7 +134,6 @@ export class Game {
         const previousLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.previous-level');
 
         const changeLevel = (newLevel: number): void => {
-            console.log('changeLevel');
             if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
                 setCurrentLevel(newLevel);
                 this.setLevelData(newLevel);
@@ -156,15 +153,11 @@ export class Game {
         });
 
         window.addEventListener('rightAnswer', () => {
-            console.log('rightAnswer event');
-
             this.gamefield.animateRightAnswer(levels[getCurrentLevel()].selector);
 
             this.levelSelect.updateLevelProgress(getCurrentLevel());
 
             const unsolvedLevels = getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
-
-            console.log('unsolvedLevels ', unsolvedLevels);
 
             if (Number(unsolvedLevels) - 1 === 0) {
                 this.gamefield.showModal();
@@ -187,7 +180,6 @@ export class Game {
             }
 
             const menuCurrentLevel = getElement(this.levelSelect.getContainer(), `.level[data-id="${level}"]`);
-            console.log(menuCurrentLevel);
 
             menuCurrentLevel.classList.add('active-level');
 
@@ -205,7 +197,6 @@ export class Game {
             const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: false };
 
             changeLevelStat(newLevelData);
-            console.log('curLevel', getCurrentLevel());
 
             this.editor.showHelper(levels[getCurrentLevel()].selector)
         });

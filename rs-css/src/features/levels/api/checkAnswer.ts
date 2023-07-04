@@ -9,8 +9,6 @@ export const checkAnswer = (answer: string): boolean => {
     const currentLevel = getCurrentLevel();
 
     if (!Number.isNaN(answerAsNum)) {
-        console.log('Got number for level select');
-
         if (answerAsNum >= MIN_LEVEL && answerAsNum <= MAX_LEVEL) {
             setCurrentLevel(answerAsNum);
 
@@ -22,11 +20,8 @@ export const checkAnswer = (answer: string): boolean => {
     }
 
     const rightAnswer = levels[currentLevel].selector;
-    console.log(rightAnswer, answer);
 
     if (rightAnswer === answer) {
-        console.log('answer is right');
-
         return true;
     }
 
