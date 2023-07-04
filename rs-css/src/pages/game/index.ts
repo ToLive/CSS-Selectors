@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { Editor } from "@widgets/Editor";
 import { Footer } from "@widgets/Footer";
 import { Gamefield } from "@widgets/Gamefield";
@@ -158,6 +159,8 @@ export class Game {
             console.log('rightAnswer event');
 
             this.gamefield.animateRightAnswer(levels[getCurrentLevel()].selector);
+
+            this.levelSelect.updateLevelProgress(getCurrentLevel());
 
             const unsolvedLevels = getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
 

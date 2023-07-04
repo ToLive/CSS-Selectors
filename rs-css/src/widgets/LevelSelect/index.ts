@@ -9,6 +9,7 @@ import { getSavedLevels } from "../../shared/state/api/getLevelsStatus/getLevels
 import { resetProgress } from "../../shared/state/api/resetProgress/resetProgress";
 import { setCurrentLevel } from "../../shared/state/api/setCurrentLevel/setCurrentLevel";
 import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
+import { SavedLevel } from "../../shared/state/types";
 
 export class LevelSelect {
     private levelSelect: HTMLElement = document.createElement('aside');
@@ -105,6 +106,27 @@ export class LevelSelect {
 
     public getContainer(): HTMLElement {
         return this.levelSelect;
+    }
+
+    public updateLevelProgress(level: number): void {
+        const levelElement = getElement(this.levelSelect, `[data-id="${level}"]`);
+
+        const levelStat = getLevelStatus(level) as SavedLevel;
+
+        const highlightedItem = getElement(this.levelSelect, '.active-level');
+
+        if (highlightedItem) {
+            highlightedItem.classList.remove('active-level');
+        }
+
+        levelElement.classList.add('active-level');
+
+        levelElement.innerHTML = `        
+            <span class="checkmark ${levelStat.solved ? "completed" : ''}"></span>
+            <span class="checkmark ${levelStat.solved && !levelStat.isHintUsed ? "completed" : ''}"></span>
+            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${levelStat.num + 1}</div>
+            <span class="level-name ml-2 text-xl  hover:text-bold">${levels[levelStat.num].syntax || ''}</span>
+        `;
     }
 
     public setLevel(num: number = this.currentLevelNumber): void {
