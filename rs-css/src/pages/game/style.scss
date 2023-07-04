@@ -1,9 +1,17 @@
 .first-col {
     width: calc(100% - 375px);
+
+    @media screen and (max-width: 1000px) {
+        width: calc(100%);
+    }
 }
 
 .second-col {
     width: 375px;
+
+    @media screen and (max-width: 1000px) {
+        width: 0;
+    }
 }
 
 .star {

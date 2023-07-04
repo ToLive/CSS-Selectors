@@ -327,15 +327,30 @@ stormtrooper {
 }
 
 
-#tooltip {
-    opacity: 0;
-    position: absolute;
-    background-color: black;
-    color: white;
-    top: 0;
-    left: 0;
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+
+    &.tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+
+        &.show {
+            visibility: visible;
+        }
+    }
 }
 
-#box:hover #tooltip {
-    opacity: 1;
+.backdrop {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, .3);
 }

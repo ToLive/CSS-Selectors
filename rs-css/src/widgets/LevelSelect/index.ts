@@ -26,7 +26,7 @@ export class LevelSelect {
             <span class="checkmark"></span>
         </h1>
 
-        <div class="level-nav">
+        <div class="level-nav flex">
             <a class="previous-level" href="#"></a>
             <a class="next-level" href="#"></a>
         </div>

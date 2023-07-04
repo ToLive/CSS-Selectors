@@ -39,7 +39,7 @@ export class Game {
         container.className = 'flex';
 
         const firstCol: HTMLDivElement = document.createElement('div');
-        firstCol.className = 'h-[100vh] first-col';
+        firstCol.className = 'h-[100vh] first-col ';
 
         const secondCol: HTMLDivElement = document.createElement('div');
         secondCol.className = 'relative z-[200] h-full second-col';
@@ -96,7 +96,7 @@ export class Game {
         const levelData: Level = levels[getCurrentLevel()];
 
         this.gamefield.setTable(levelData.boardMarkup, levelData.selector);
-        this.editor.setHtmlViewer(`<div class="table">${levelData.boardMarkup}</div>`);
+        this.editor.setHtmlViewer(`<div class="space">${levelData.boardMarkup}</div>`);
 
         this.editor.clearInput();
 

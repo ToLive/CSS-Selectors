@@ -25,7 +25,7 @@ export class Gamefield implements IGameField {
         const modal = new Modal();
 
         this.gamefield.innerHTML = `
-            <h1 class="level-title text-4xl font-bold text-center px-4">
+            <h1 class="level-title text-3xl font-bold text-center px-4">
                 ${this.props.title}
             </h1>            
             <button id="help-button" class="bg-zinc-900 hover:bg-zinc-700 font-bold py-2 px-4 rounded-full mt-4"">
@@ -37,7 +37,9 @@ export class Gamefield implements IGameField {
         <div class="table-wrapper w-fit" style="transform: rotateX(20deg); opacity: 1;">
             <div class="table-surface"></div>
             <div class="nametags"></div>
-            <div id="tooltip">Tooltip</div>
+            <div class="tooltip">
+                <span class="tooltip-text"></span>
+            </div>
             <div class="game-table">
             </div>
         </div>
@@ -63,9 +65,21 @@ export class Gamefield implements IGameField {
             item.classList.add('strobe');
         })
 
+        const tooltip = getElement(this.gamefield, '.tooltip');
+        const tooltiptext = getElement(this.gamefield, '.tooltip-text');
+
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseover', (event) => {
+                console.log((event.currentTarget as Element).outerHTML);
+                item.classList.add('backdrop');
+                tooltip.classList.add('show');
+                // tooltiptext.textContent = (event.currentTarget as Element).outerHTML;
+            });
+
+            item.addEventListener('mouseleave', (event) => {
                 console.log(event.target);
+                item.classList.remove('backdrop');
+                tooltip.classList.remove('show');
             });
         })
     }
