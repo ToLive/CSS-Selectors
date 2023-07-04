@@ -37,6 +37,7 @@ export class Gamefield implements IGameField {
         <div class="table-wrapper w-fit" style="transform: rotateX(20deg); opacity: 1;">
             <div class="table-surface"></div>
             <div class="nametags"></div>
+            <div id="tooltip">Tooltip</div>
             <div class="game-table">
             </div>
         </div>
@@ -61,6 +62,16 @@ export class Gamefield implements IGameField {
         table.querySelectorAll(selector).forEach((item) => {
             item.classList.add('strobe');
         })
+
+        table.querySelectorAll('*').forEach((item) => {
+            item.addEventListener('mouseover', (event) => {
+                console.log(event.target);
+            });
+        })
+    }
+
+    public showModal(): void {
+        getElement(this.gamefield, '.main-modal').classList.remove('hidden');
     }
 
     public animateRightAnswer(selector: string): void {

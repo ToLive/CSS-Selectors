@@ -15,6 +15,7 @@ import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurre
 import { EventDetail, SavedLevel } from "../../shared/state/types";
 import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
 import { getSavedLevels } from "../../shared/state/api/getLevelsStatus/getLevelsStatus";
+import { Modal } from "../../shared/ui/modal";
 
 
 export class Game {
@@ -157,6 +158,16 @@ export class Game {
             console.log('rightAnswer event');
 
             this.gamefield.animateRightAnswer(levels[getCurrentLevel()].selector);
+
+            const unsolvedLevels = getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
+
+            console.log('unsolvedLevels ', unsolvedLevels);
+
+            if (Number(unsolvedLevels) - 1 === 0) {
+                this.gamefield.showModal();
+
+                return;
+            }
 
             setTimeout(() => changeLevel(getCurrentLevel() + LEVEL_STEP), 1000);
         });
