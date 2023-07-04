@@ -68,6 +68,7 @@ export class Gamefield implements IGameField {
 
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseenter', (event) => {
+                item.classList.add('backdrop');
             });
 
             item.addEventListener('mouseleave', (event) => {
