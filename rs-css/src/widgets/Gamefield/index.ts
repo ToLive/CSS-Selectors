@@ -67,10 +67,7 @@ export class Gamefield implements IGameField {
         const tooltiptext = getElement(this.gamefield, '.tooltip-text');
 
         table.querySelectorAll('*').forEach((item) => {
-            item.addEventListener('mouseover', (event) => {
-                item.classList.add('backdrop');
-                tooltip.classList.add('show');
-                // tooltiptext.textContent = (event.currentTarget as Element).outerHTML;
+            item.addEventListener('mouseenter', (event) => {
             });
 
             item.addEventListener('mouseleave', (event) => {
