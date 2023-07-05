@@ -20,13 +20,12 @@ export class LevelSelect {
         this.levelSelect.className = 'flex flex-col h-full';
 
         const elements = `<div class="help-wrapper">
-        <h1 class="level-header">
-            <span class="level-text"></span>
-            <span class="checkmark"></span>
-        </h1>
-
         <div class="level-nav flex">
             <a class="previous-level" href="#"></a>
+            <h1 class="level-header">
+                <span class="level-text"></span>
+                <span class="checkmark"></span>
+            </h1>
             <a class="next-level" href="#"></a>
         </div>
 
