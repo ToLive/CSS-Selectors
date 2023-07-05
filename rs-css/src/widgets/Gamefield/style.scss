@@ -1,5 +1,6 @@
 .level-title {
     color: rgb(252, 223, 43);
+    font-family: 'StarWars';
 }
 
 #help-button {
@@ -290,7 +291,7 @@ luke {
     &.small {
         display: block;
         position: relative;
-        left: 25px;
+        left: px;
         top: 25px;
         width: 50px;
         height: 50px;
@@ -308,10 +309,13 @@ bb-8 {
 
     &.small {
         display: block;
-        width: 100px;
-        height: 100px;
-        background-size: 50%;
-        background-position: 25px 25px;
+        position: relative;
+        left: px;
+        top: 25px;
+        width: 50px;
+        height: 50px;
+        background-size: 100%;
+        background-position: 0 0;
     }
 }
 

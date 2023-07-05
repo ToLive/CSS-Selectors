@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'StarWars';
+    src: url('/src/app/assets/fonts/Starjedi.ttf') format('ttf');
+}
+
 body {
-    font-family: "Exo 2", "Lato", "Helvetica Neue", sans-serif;
+    font-family: 'StarWars', sans-serif;
     background-color: rgb(39 39 42);
 }

@@ -1,11 +1,17 @@
+.editor {
+    border-radius: 0.75rem;
+}
+
+.cm-editor {
+    max-height: 180px;
+}
+
 .cm-content {
-    border-bottom-right-radius: 0.75rem;
     background-color: white;
     font-size: 13px;
 }
 
 .cm-gutters {
-    border-bottom-left-radius: 0.75rem;
     background-color: rgba(153, 246, 228, var(--tw-bg-opacity)) !important;
 }
 

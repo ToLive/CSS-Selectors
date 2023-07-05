@@ -1,4 +1,3 @@
-const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -29,6 +28,10 @@ const baseConfig = {
                     filename: 'images/[name][ext]',
                 },
             },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
         ],
 
     },
@@ -46,7 +49,6 @@ const baseConfig = {
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
-        new Dotenv(),
     ],
 };
 

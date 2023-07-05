@@ -92,6 +92,7 @@ export class LevelSelect {
                 this.setLevel(levelNumber);
                 setCurrentLevel(levelNumber);
 
+                menuToggle.classList.remove('open');
                 menuBox.classList.remove('is-active');
             });
         });

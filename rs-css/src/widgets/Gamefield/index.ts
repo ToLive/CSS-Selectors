@@ -23,7 +23,7 @@ export class Gamefield implements IGameField {
         const modal = new Modal();
 
         this.gamefield.innerHTML = `
-            <h1 class="level-title text-3xl font-bold text-center px-4">
+            <h1 class="level-title text-2xl md:text-3xl font-bold text-center px-4">
                 ${this.props.title}
             </h1>            
             <button id="help-button" class="bg-zinc-900 hover:bg-zinc-700 font-bold py-2 px-4 rounded-full mt-4"">

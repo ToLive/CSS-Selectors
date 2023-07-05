@@ -1,6 +1,8 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
+import { css } from "@codemirror/lang-css";
+import { Events } from '@uiw/codemirror-extensions-events';
 import './style.scss';
 import { getElement } from "@shared/helpers/getElement";
 import { checkAnswer } from "@features/levels";
@@ -31,7 +33,7 @@ export class Editor {
         groguHelper.src = Grogu as string;
 
         this.htmlContainer = document.createElement('div');
-        this.htmlContainer.className = 'relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
+        this.htmlContainer.className = 'html-editor relative z-[100] w-full m-2 bg-zinc-700 html-viewer rounded-xl';
 
         cssContainer.innerHTML = `<div class="p-2 relative z-[100] rounded-xl text-white h-[35px]"><span class="text-center">CSS Editor</span></div>
         <div class="flex relative z-[100] rounded-b-xl">
@@ -79,14 +81,23 @@ export class Editor {
             }
         });
 
-        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div>`;
+        /* const eventExt2 = Events.content({
+            focus: (evn) => {
+                console.log('focus');
+            },
+            blur: (evn) => {
+                console.log('blur');
+            },
+        }); */
+
+        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor"></div><div class="p-2 rounded-xl text-white h-[10px]"></div>`;
 
         this.editor.append(cssContainer, this.htmlContainer);
 
         this.htmlViewer = new EditorView({
             doc: '',
             extensions: [basicSetup],
-            parent: this.htmlContainer,
+            parent: this.htmlContainer.querySelector('.editor') as HTMLElement,
         });
     }
 
@@ -125,6 +136,15 @@ export class Editor {
     }
 
     public setHtmlViewer(text: string): void {
+        /* const eventExt2 = Events.content({
+            focus: (evn) => {
+                console.log('focus');
+            },
+            blur: (evn) => {
+                console.log('blur');
+            },
+        }); */
+
         this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup, html()] }))
 
         this.htmlContainer.querySelectorAll('.cm-line').forEach((line) => {
