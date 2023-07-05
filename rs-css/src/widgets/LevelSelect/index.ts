@@ -20,7 +20,6 @@ export class LevelSelect {
         this.levelSelect.className = 'flex flex-col h-full';
 
         const elements = `<div class="help-wrapper">
-
         <h1 class="level-header">
             <span class="level-text"></span>
             <span class="checkmark"></span>
@@ -30,8 +29,6 @@ export class LevelSelect {
             <a class="previous-level" href="#"></a>
             <a class="next-level" href="#"></a>
         </div>
-
-        <div class="level-progress"><div class="progress" style="width: 3.125%;"></div></div>
 
         <div class="display-help">
             <h3 class="selector-name"></h3>
@@ -63,7 +60,7 @@ export class LevelSelect {
         const levelList = `
         <div class="menu-box">
             <div class="flex flex-col h-full w-full justify-center items-center text-center align-middle">
-                <h2 class="choose-title font-bold text-xl my-2">Choose a level</h2>
+                <h2 class="choose-title font-bold text-xl my-2">Choose a stage</h2>
                 <div class="levels flex flex-col w-full flex-grow self-start p-3">
                     ${menuLevelsList || ''}
                 </div>
@@ -145,7 +142,7 @@ export class LevelSelect {
             levelTitle: () => getElement(document.body, '.level-title'),
         };
 
-        levelElements.levelText().innerHTML = `Level ${num + LEVEL_STEP} of ${levels.length}`;
+        levelElements.levelText().innerHTML = `Stage ${num + LEVEL_STEP} of ${levels.length}`;
         levelElements.selectorName().innerHTML = level.selectorName || '<h3 class="selector-name"></h3>';
         levelElements.title().innerHTML = level.helpTitle;
         levelElements.syntax().innerHTML = level.syntax;
