@@ -145,9 +145,14 @@ export class Editor {
             },
         }); */
 
+        /* const tempElement = document.createElement('div');
+         tempElement.innerHTML = text;
+         tempElement.querySelectorAll('*').forEach((item, idx) => { (item as HTMLElement).dataset.id = idx.toString() }); */
+
+
         this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup, html()] }))
 
-        this.htmlContainer.querySelectorAll('.cm-line').forEach((line) => {
+        this.htmlContainer.querySelectorAll('.cm-line').forEach((line, idx) => {
             line.addEventListener('mouseover', (e) => {
                 if (line.textContent?.includes(' </')) {
                     const tag = line.textContent.replace(' </', '').replace('>', '');

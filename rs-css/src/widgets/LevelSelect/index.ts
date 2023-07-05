@@ -34,12 +34,12 @@ export class LevelSelect {
             <h2 class="title"></h2>
             <h3 class="syntax"></h3>
             <div class="hint"></div>
-            <h4 class="examples-title" style="display: block;">Examples</h4>
+            <h4 class="examples-title">Examples</h4>
             <div class="examples"></div>
         </div>
         </div>
-        <div class="level-menu-toggle-wrapper">
-            <div class="level-menu-toggle"></div>
+        <div class="menu-toggle-wrapper">
+            <div class="menu-toggle"></div>
         </div>`;
 
         this.levelSelect.innerHTML = elements;
@@ -69,8 +69,8 @@ export class LevelSelect {
 
         this.levelSelect.insertAdjacentHTML('beforeend', levelList);
 
-        const menuToggleWrapper = getElement(this.levelSelect, '.level-menu-toggle-wrapper');
-        const menuToggle = getElement(this.levelSelect, '.level-menu-toggle');
+        const menuToggleWrapper = getElement(this.levelSelect, '.menu-toggle-wrapper');
+        const menuToggle = getElement(this.levelSelect, '.menu-toggle');
         const menuBox = getElement(this.levelSelect, '.menu-box');
         menuToggleWrapper.addEventListener('click', () => {
             menuBox.classList.toggle('is-active');

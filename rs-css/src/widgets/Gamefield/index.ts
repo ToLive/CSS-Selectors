@@ -55,9 +55,13 @@ export class Gamefield implements IGameField {
     }
 
     public setTable(content: string, selector: string): void {
+        const tempElement = document.createElement('div');
+        tempElement.innerHTML = content;
+        tempElement.querySelectorAll('*').forEach((item, idx) => { (item as HTMLElement).dataset.id = idx.toString() });
+
         const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
 
-        table.innerHTML = content;
+        table.innerHTML = tempElement.innerHTML;
 
         table.querySelectorAll(selector).forEach((item) => {
             item.classList.add('strobe');
@@ -68,13 +72,17 @@ export class Gamefield implements IGameField {
 
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseenter', (event) => {
+                console.log((item as HTMLElement).dataset.id)
                 const elemClone = document.createElement('div');
                 elemClone.innerHTML = (event.target as HTMLElement).outerHTML;
                 elemClone.querySelectorAll('*').forEach(element => {
                     element.classList.remove('strobe');
                     element.classList.remove('backdrop');
                 });
-                tooltiptext.textContent = elemClone.innerHTML.replace(/class=""/g, '').replace(/ >/g, '>');;
+                tooltiptext.textContent = elemClone.innerHTML
+                    .replace(/class=""/g, '')
+                    .replace(/data-id="."/g, '')
+                    .replace(/ >/g, '>');
                 tooltip.classList.add('show');
 
                 item.classList.add('backdrop');
