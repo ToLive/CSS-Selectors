@@ -3,21 +3,15 @@ import { Editor } from "@widgets/Editor";
 import { Footer } from "@widgets/Footer";
 import { Gamefield } from "@widgets/Gamefield";
 import { Header } from "@widgets/Header";
-import { getElement } from "@shared/helpers/getElement";
+import { getElement } from "@shared/helpers";
 import { levels } from "@features/levels";
 import { Level } from "@features/levels/types";
 import { LEVEL_STEP, MAX_LEVEL, MIN_LEVEL } from "@features/levels/lib/config";
 import { LevelSelect } from "@widgets/LevelSelect";
 
 import './style.scss';
-import { changeLevelStat } from "@shared/state/api/changeLevelStat/changeLevelStat";
-import { setCurrentLevel } from "@shared/state/api/setCurrentLevel/setCurrentLevel";
-import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
-import { EventDetail, SavedLevel } from "../../shared/state/types";
-import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
-import { getSavedLevels } from "../../shared/state/api/getLevelsStatus/getLevelsStatus";
-import { Modal } from "../../shared/ui/modal";
-
+import * as StateApi from "@shared/state/api";
+import { EventDetail, SavedLevel } from "@shared/state/types";
 
 export class Game {
     private editor = new Editor();
@@ -62,16 +56,16 @@ export class Game {
 
         this.generateStars(document.body);
 
-        this.setLevelData(getCurrentLevel());
+        this.setLevelData(StateApi.getCurrentLevel());
         this.addEventListeners();
 
     }
 
     private setLevelsState(): void {
-        const lsData: SavedLevel[] | null = getSavedLevels();
+        const lsData: SavedLevel[] | null = StateApi.getSavedLevels();
 
         if (lsData === null) {
-            levels.map((_, idx) => changeLevelStat({
+            levels.map((_, idx) => StateApi.changeLevelStat({
                 num: idx,
                 solved: false,
                 isHintUsed: false
@@ -81,7 +75,7 @@ export class Game {
         }
 
         lsData.forEach((level: SavedLevel) => {
-            changeLevelStat({
+            StateApi.changeLevelStat({
                 num: level.num,
                 solved: level.solved,
                 isHintUsed: level.isHintUsed
@@ -91,14 +85,14 @@ export class Game {
 
     private setLevelData(level: number): void {
         this.levelSelect.setLevel(level);
-        const levelData: Level = levels[getCurrentLevel()];
+        const levelData: Level = levels[StateApi.getCurrentLevel()];
 
         this.gamefield.setTable(levelData.boardMarkup, levelData.selector);
         this.editor.setHtmlViewer(`<div class="space">${levelData.boardMarkup}</div>`);
 
         this.editor.clearInput();
 
-        setCurrentLevel(level);
+        StateApi.setCurrentLevel(level);
     }
 
     private generateStars(placement: HTMLElement): void {
@@ -135,29 +129,29 @@ export class Game {
 
         const changeLevel = (newLevel: number): void => {
             if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
-                setCurrentLevel(newLevel);
+                StateApi.setCurrentLevel(newLevel);
                 this.setLevelData(newLevel);
             }
         };
 
         nextLevelButton.addEventListener('click', () => {
-            const currentLevel = getCurrentLevel();
+            const currentLevel = StateApi.getCurrentLevel();
 
             changeLevel(currentLevel + LEVEL_STEP);
         });
 
         previousLevelButton.addEventListener('click', () => {
-            const currentLevel = getCurrentLevel();
+            const currentLevel = StateApi.getCurrentLevel();
 
             changeLevel(currentLevel - LEVEL_STEP);
         });
 
         window.addEventListener('rightAnswer', () => {
-            this.gamefield.animateRightAnswer(levels[getCurrentLevel()].selector);
+            this.gamefield.animateRightAnswer(levels[StateApi.getCurrentLevel()].selector);
 
-            this.levelSelect.updateLevelProgress(getCurrentLevel());
+            this.levelSelect.updateLevelProgress(StateApi.getCurrentLevel());
 
-            const unsolvedLevels = getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
+            const unsolvedLevels = StateApi.getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
 
             if (Number(unsolvedLevels) - 1 === 0) {
                 this.gamefield.showModal();
@@ -165,7 +159,7 @@ export class Game {
                 return;
             }
 
-            setTimeout(() => changeLevel(getCurrentLevel() + LEVEL_STEP), 1000);
+            setTimeout(() => changeLevel(StateApi.getCurrentLevel() + LEVEL_STEP), 1000);
         });
 
         window.addEventListener('changeLevel', (event: Event) => {
@@ -194,11 +188,11 @@ export class Game {
 
         const helpButton: HTMLElement = getElement(this.gamefield.getContainer(), '#help-button');
         helpButton.addEventListener('click', () => {
-            const newLevelData: SavedLevel = { ...getLevelStatus(getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: false };
+            const newLevelData: SavedLevel = { ...StateApi.getLevelStatus(StateApi.getCurrentLevel()) as SavedLevel, isHintUsed: true, solved: false };
 
-            changeLevelStat(newLevelData);
+            StateApi.changeLevelStat(newLevelData);
 
-            this.editor.showHelper(levels[getCurrentLevel()].selector)
+            this.editor.showHelper(levels[StateApi.getCurrentLevel()].selector)
         });
     }
 }

@@ -1,6 +1,6 @@
 import { HeaderProps, IHeader } from "./types";
 import Logo from './assets/dish-plate.svg';
-import { getElement } from "@/shared/helpers/getElement";
+import { getElement } from "@/shared/helpers";
 
 export class Header implements IHeader {
     private header: HTMLElement = document.createElement('header');

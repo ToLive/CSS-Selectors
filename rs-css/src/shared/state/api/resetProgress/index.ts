@@ -1,6 +1,6 @@
-import { changeLevelStat } from "../changeLevelStat/changeLevelStat";
-import { getSavedLevels } from "../getLevelsStatus/getLevelsStatus"
-import { setCurrentLevel } from "../setCurrentLevel/setCurrentLevel";
+import { getSavedLevels } from '../getSavedLevels';
+import { changeLevelStat } from '../changeLevelStat';
+import { setCurrentLevel } from '../setCurrentLevel';
 
 export const resetProgress = (): void => {
     const levels = getSavedLevels();

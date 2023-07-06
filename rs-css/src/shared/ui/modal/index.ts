@@ -1,4 +1,4 @@
-import { getElement } from '../../helpers/getElement';
+import { getElement } from '../../helpers/api/getElement';
 import './style.scss';
 
 export class Modal {
@@ -38,8 +38,6 @@ export class Modal {
                 </div>
             </div>    
         </div>`;
-
-        //const modalElement = getElement(this.modal, '.main-modal');
 
         const closeModal = (): void => {
             this.modal.classList.remove('flex');

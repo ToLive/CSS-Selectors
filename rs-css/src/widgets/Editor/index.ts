@@ -2,13 +2,11 @@ import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
 import './style.scss';
-import { getElement } from "@shared/helpers/getElement";
+import { getElement } from "@shared/helpers";
 import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
-import { changeLevelStat } from "../../shared/state/api/changeLevelStat/changeLevelStat";
-import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
-import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
+import * as StateApi from "../../shared/state/api";
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
@@ -55,12 +53,12 @@ export class Editor {
         });
         this.checkAnswerButton.addEventListener('click', () => {
             if (checkAnswer(this.userAnswerInput.value)) {
-                const currentLevel = getCurrentLevel();
+                const currentLevel = StateApi.getCurrentLevel();
 
-                changeLevelStat({
+                StateApi.changeLevelStat({
                     num: currentLevel,
                     solved: true,
-                    isHintUsed: getLevelStatus(currentLevel)?.isHintUsed || false,
+                    isHintUsed: StateApi.getLevelStatus(currentLevel)?.isHintUsed || false,
                 });
 
                 return;
@@ -90,9 +88,9 @@ export class Editor {
 
     public checkAnswer(): void {
         if (checkAnswer(this.userAnswerInput.value)) {
-            const currentLevel = getCurrentLevel();
+            const currentLevel = StateApi.getCurrentLevel();
 
-            changeLevelStat({
+            StateApi.changeLevelStat({
                 num: currentLevel,
                 solved: true,
                 isHintUsed: false,

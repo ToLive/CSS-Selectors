@@ -1,4 +1,4 @@
-import { getElement } from '../../shared/helpers/getElement';
+import { getElement } from '../../shared/helpers/api/getElement';
 import Rslogo from './assets/rs_school_js.svg';
 
 export class Footer {

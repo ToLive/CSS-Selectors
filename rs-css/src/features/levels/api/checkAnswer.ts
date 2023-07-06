@@ -1,7 +1,7 @@
 import { LEVEL_STEP, MAX_LEVEL, MIN_LEVEL, levels } from "../lib/config";
-import { setCurrentLevel } from "../../../shared/state/api/setCurrentLevel/setCurrentLevel";
-import { getCurrentLevel } from "../../../shared/state/api/getCurrentLevel/getCurrentLevel";
-import { checkEquality } from '../../../shared/helpers/checkEquality';
+import { setCurrentLevel } from "../../../shared/state/api/setCurrentLevel";
+import { getCurrentLevel } from "../../../shared/state/api/getCurrentLevel";
+import { checkEquality } from '../../../shared/helpers/api/checkEquality';
 
 
 export const checkAnswer = (answer: string): boolean => {

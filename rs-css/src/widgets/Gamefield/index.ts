@@ -1,4 +1,4 @@
-import { getElement } from "@shared/helpers/getElement";
+import { getElement } from "@shared/helpers";
 import { Modal } from "@shared/ui/modal";
 import { GameFieldProps, IGameField } from "./types";
 
@@ -11,7 +11,7 @@ export class Gamefield implements IGameField {
         title: 'Select the bento boxes',
         className: ['flex', 'flex-col', 'justify-center', 'items-center'],
         buttonTitle: "Help, I'm stuck!",
-        buttonHandler: (event): void => {
+        buttonHandler: (): void => {
             const modal = getElement(this.gamefield, '.main-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -57,7 +57,20 @@ export class Gamefield implements IGameField {
     public setTable(content: string, selector: string): void {
         const tempElement = document.createElement('div');
         tempElement.innerHTML = content;
-        tempElement.querySelectorAll('*').forEach((item, idx) => { (item as HTMLElement).dataset.id = idx.toString() });
+
+        /* let linesCounter = 0;
+
+        tempElement.querySelectorAll('*').forEach((item, idx) => {
+            (item as HTMLElement).dataset.id = linesCounter.toString();
+
+            const itemLines = ([...item.innerHTML.matchAll(/(\r\n|\r|\n)/g)].length + 1);
+
+            linesCounter += itemLines;
+
+            (item as HTMLElement).dataset.lines = linesCounter.toString();
+
+            // linesCounter += linesCounter;
+        }); */
 
         const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
 
@@ -74,6 +87,7 @@ export class Gamefield implements IGameField {
             item.addEventListener('mouseenter', (event) => {
                 const elemClone = document.createElement('div');
                 elemClone.innerHTML = (event.target as HTMLElement).outerHTML;
+
                 elemClone.querySelectorAll('*').forEach(element => {
                     element.classList.remove('strobe');
                     element.classList.remove('backdrop');
@@ -85,9 +99,27 @@ export class Gamefield implements IGameField {
                 tooltip.classList.add('show');
 
                 item.classList.add('backdrop');
+
+                // console.log(item);
+
+                const firstIndex = Number((item as HTMLElement).dataset.id);
+                const lastIndex = Number((item as HTMLElement).dataset.lines);
+
+                console.log(firstIndex, lastIndex);
+
+                /* document.querySelectorAll('.cm-line').forEach((line, index) => {
+                    if (index >= firstIndex && index <= lastIndex - 1) {
+                        line.classList.add('selected');
+                    }
+                    // console.log(line.outerHTML)
+                }) */
             });
 
-            item.addEventListener('mouseleave', (event) => {
+            item.addEventListener('mouseleave', () => {
+                document.querySelectorAll('.cm-line').forEach((line) => {
+                    line.classList.remove('selected');
+                })
+
                 item.classList.remove('backdrop');
                 tooltip.classList.remove('show');
             });

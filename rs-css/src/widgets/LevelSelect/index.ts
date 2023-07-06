@@ -1,15 +1,11 @@
-import { getElement } from "@shared/helpers/getElement";
+import { getElement } from "@shared/helpers";
 import { levels } from "@features/levels";
 import { Level } from "@features/levels/types";
+import * as StateApi from "@shared/state/api";
+import { LEVEL_STEP } from "@features/levels/lib/config";
+import { SavedLevel } from "@shared/state/types";
 
 import './style.scss';
-import { getLevelStatus } from "../../shared/state/api/getLevelStatus/getLevelStatus";
-import { LEVEL_STEP } from "../../features/levels/lib/config";
-import { getSavedLevels } from "../../shared/state/api/getLevelsStatus/getLevelsStatus";
-import { resetProgress } from "../../shared/state/api/resetProgress/resetProgress";
-import { setCurrentLevel } from "../../shared/state/api/setCurrentLevel/setCurrentLevel";
-import { getCurrentLevel } from "../../shared/state/api/getCurrentLevel/getCurrentLevel";
-import { SavedLevel } from "../../shared/state/types";
 
 export class LevelSelect {
     private levelSelect: HTMLElement = document.createElement('aside');
@@ -48,11 +44,11 @@ export class LevelSelect {
     }
 
     private buildMenu(): void {
-        const menuLevelsList = getSavedLevels()?.map((level) => `
-        <a class="level w-full flex cursor-pointer my-2 hover:font-bold ${level.num === getCurrentLevel() ? 'active-level' : ''}" data-id="${level.num}">
+        const menuLevelsList = StateApi.getSavedLevels()?.map((level) => `
+        <a class="level w-full flex cursor-pointer my-2 hover:font-bold ${level.num === StateApi.getCurrentLevel() ? 'active-level' : ''}" data-id="${level.num}">
             <span class="checkmark ${level.solved ? "completed" : ''}"></span>
             <span class="checkmark ${level.solved && !level.isHintUsed ? "completed" : ''}"></span>
-            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${level.num + 1}</div>
+            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${level.num + LEVEL_STEP}</div>
             <span class="level-name ml-2 text-xl  hover:text-bold">${levels[level.num].syntax || ''}</span>
         </a>`).join('');
 
@@ -86,7 +82,7 @@ export class LevelSelect {
                 const levelNumber = parseInt(level.getAttribute('data-id') || '0', 10);
 
                 this.setLevel(levelNumber);
-                setCurrentLevel(levelNumber);
+                StateApi.setCurrentLevel(levelNumber);
 
                 menuToggle.classList.remove('open');
                 menuBox.classList.remove('is-active');
@@ -95,7 +91,7 @@ export class LevelSelect {
 
         const resetProgressButton = getElement(this.levelSelect, '.reset-progress');
         resetProgressButton.addEventListener('click', () => {
-            resetProgress();
+            StateApi.resetProgress();
             menuBox.classList.remove('is-active');
             menuToggle.classList.remove('open');
         });
@@ -108,7 +104,7 @@ export class LevelSelect {
     public updateLevelProgress(level: number): void {
         const levelElement = getElement(this.levelSelect, `[data-id="${level}"]`);
 
-        const levelStat = getLevelStatus(level) as SavedLevel;
+        const levelStat = StateApi.getLevelStatus(level) as SavedLevel;
 
         const highlightedItem = getElement(this.levelSelect, '.active-level');
 
@@ -121,7 +117,7 @@ export class LevelSelect {
         levelElement.innerHTML = `        
             <span class="checkmark ${levelStat.solved ? "completed" : ''}"></span>
             <span class="checkmark ${levelStat.solved && !levelStat.isHintUsed ? "completed" : ''}"></span>
-            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${levelStat.num + 1}</div>
+            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${levelStat.num + LEVEL_STEP}</div>
             <span class="level-name ml-2 text-xl  hover:text-bold">${levels[levelStat.num].syntax || ''}</span>
         `;
     }
@@ -151,7 +147,7 @@ export class LevelSelect {
         levelElements.levelTitle().innerHTML = level.doThis;
 
         const isLevelCompleted = (levelNum: number): boolean => {
-            const levelData = getLevelStatus(levelNum);
+            const levelData = StateApi.getLevelStatus(levelNum);
 
             if (levelData) {
                 return levelData.solved;
