@@ -25,8 +25,6 @@ export const checkAnswer = (answer: string): boolean => {
     try {
         const userAnswerNodes = tempNode.querySelectorAll(answer);
         const rightAnswerNodes = tempNode.querySelectorAll(levels[currentLevel].selector);
-        console.log(userAnswerNodes);
-        console.log(rightAnswerNodes);
 
         if (checkEquality(rightAnswerNodes, userAnswerNodes)) {
             return true;

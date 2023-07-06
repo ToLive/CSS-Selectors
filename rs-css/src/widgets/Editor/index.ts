@@ -1,8 +1,6 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
-import { css } from "@codemirror/lang-css";
-import { Events } from '@uiw/codemirror-extensions-events';
 import './style.scss';
 import { getElement } from "@shared/helpers/getElement";
 import { checkAnswer } from "@features/levels";
@@ -65,8 +63,6 @@ export class Editor {
                     isHintUsed: getLevelStatus(currentLevel)?.isHintUsed || false,
                 });
 
-                // setCurrentLevel(currentLevel + LEVEL_STEP);
-
                 return;
             };
 
@@ -80,15 +76,6 @@ export class Editor {
                 setTimeout(() => this.editor.classList.remove('shake-editor'), ANIM_DELAY);
             }
         });
-
-        /* const eventExt2 = Events.content({
-            focus: (evn) => {
-                console.log('focus');
-            },
-            blur: (evn) => {
-                console.log('blur');
-            },
-        }); */
 
         this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor"></div><div class="p-2 rounded-xl text-white h-[10px]"></div>`;
 
@@ -110,8 +97,6 @@ export class Editor {
                 solved: true,
                 isHintUsed: false,
             });
-
-            // setCurrentLevel(currentLevel + LEVEL_STEP);
 
             return;
         };
@@ -136,20 +121,6 @@ export class Editor {
     }
 
     public setHtmlViewer(text: string): void {
-        /* const eventExt2 = Events.content({
-            focus: (evn) => {
-                console.log('focus');
-            },
-            blur: (evn) => {
-                console.log('blur');
-            },
-        }); */
-
-        /* const tempElement = document.createElement('div');
-         tempElement.innerHTML = text;
-         tempElement.querySelectorAll('*').forEach((item, idx) => { (item as HTMLElement).dataset.id = idx.toString() }); */
-
-
         this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup, html()] }))
 
         this.htmlContainer.querySelectorAll('.cm-line').forEach((line, idx) => {

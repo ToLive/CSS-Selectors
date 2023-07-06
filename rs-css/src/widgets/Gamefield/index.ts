@@ -72,7 +72,6 @@ export class Gamefield implements IGameField {
 
         table.querySelectorAll('*').forEach((item) => {
             item.addEventListener('mouseenter', (event) => {
-                console.log((item as HTMLElement).dataset.id)
                 const elemClone = document.createElement('div');
                 elemClone.innerHTML = (event.target as HTMLElement).outerHTML;
                 elemClone.querySelectorAll('*').forEach(element => {
