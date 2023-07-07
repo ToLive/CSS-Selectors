@@ -1,4 +1,4 @@
-import onChange, { ApplyData } from "on-change";
+import onChange from "on-change";
 import { EventDetail, SavedLevel, State } from './types';
 
 const state: State = {
@@ -11,7 +11,7 @@ const events = {
     changeLevel: (detail: Pick<EventDetail, "levelNum">): Event => new CustomEvent("changeLevel", { bubbles: true, detail }),
 }
 
-function generateEvent(path: string, value: unknown, previousValue?: unknown, applyData?: ApplyData): void {
+function generateEvent(path: string, value: unknown): void {
     if (path.includes('levelStat')
         && (value as SavedLevel).solved === true
     ) {
@@ -23,6 +23,6 @@ function generateEvent(path: string, value: unknown, previousValue?: unknown, ap
     }
 }
 
-export const watchedState = onChange(state, (path: string, value: unknown, previousValue: unknown, applyData: ApplyData): void => {
-    generateEvent(path, value, previousValue, applyData);
+export const watchedState = onChange(state, (path: string, value: unknown): void => {
+    generateEvent(path, value);
 });
