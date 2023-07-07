@@ -30,7 +30,7 @@
         transition: all .15s ease-out;
         cursor: pointer;
         position: relative;
-        top: 10px;
+        top: 6px;
 
         &:before {
             top: -10px;
@@ -78,7 +78,7 @@
     align-items: center;
     position: fixed;
     gap: 40px 0;
-    top: 0;
+    top: 0px;
     right: -100%;
     width: 375px;
     height: 100%;
@@ -163,45 +163,45 @@
 }
 
 .level-nav {
-    // position: absolute;
     margin-bottom: 20px;
-    top: 20px;
     line-height: 0;
 
-    a {
-        padding: 5px;
-        position: relative;
-        height: 30px;
-        width: 30px;
-        display: inline-block;
-        opacity: .25;
-        transition: opacity .2s ease-out;
-    }
+    .arrow {
+        margin-top: -7px;
+        transform: rotate(90deg);
+        cursor: pointer;
 
-    a:after {
-        content: "";
-        height: 18px;
-        width: 18px;
-        position: absolute;
-        border: solid 2px white;
-        border-width: 2px 2px 0 0;
-        transform-origin: center center;
-        top: 6px;
-        box-sizing: border-box;
-    }
+        &.arrow-right {
+            transform: rotate(-90deg);
+        }
 
-    a:hover {
-        opacity: .4;
-    }
+        span {
+            display: block;
+            width: 1.5vw;
+            height: 1.5vw;
+            border-bottom: 2px solid rgb(3, 233, 244);
+            border-right: 2px solid rgb(3, 233, 244);
+            transform: rotate(45deg);
 
-    .previous-level:after {
-        transform: rotate(-135deg);
-        right: 2px;
-    }
+            &:hover {
+                animation: animate 1s infinite;
+            }
+        }
 
-    .next-level:after {
-        transform: rotate(45deg);
-        left: 2px;
+        @keyframes animate {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(10px, 10px);
+            }
+        }
     }
 }
 
@@ -213,7 +213,7 @@
     .selector-name {
         font-size: 18px;
         margin: 0 0 4px 0;
-        color: rgb(75, 213, 238);
+        color: rgb(3, 233, 244);
     }
 
     .title {
@@ -258,7 +258,7 @@
     .examples-title {
         margin: 45px 0 10px 0;
         padding: 0;
-        color: rgb(75, 213, 238);
+        color: rgb(3, 233, 244);
     }
 
     .example {

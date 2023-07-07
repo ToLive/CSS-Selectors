@@ -17,12 +17,16 @@ export class LevelSelect {
 
         const elements = `<div class="help-wrapper">
         <div class="level-nav flex">
-            <a class="previous-level" href="#"></a>
+            <div class="previous-level arrow">
+                <span></span>
+            </div>
             <h1 class="level-header">
                 <span class="level-text"></span>
                 <span class="checkmark"></span>
             </h1>
-            <a class="next-level" href="#"></a>
+            <div class="next-level arrow arrow-right ml-2">
+                <span></span>
+            </div>
         </div>
 
         <div class="display-help">
@@ -48,7 +52,7 @@ export class LevelSelect {
         <a class="level w-full flex cursor-pointer my-2 hover:font-bold ${level.num === StateApi.getCurrentLevel() ? 'active-level' : ''}" data-id="${level.num}">
             <span class="checkmark ${level.solved ? "completed" : ''}"></span>
             <span class="checkmark ${level.solved && !level.isHintUsed ? "completed" : ''}"></span>
-            <div class="level-number text-xl text-center ml-3 w-[20px]  hover:text-bold">${level.num + LEVEL_STEP}</div>
+            <div class="level-number text-xl text-center ml-3 w-[20px] hover:text-bold">${level.num + LEVEL_STEP}</div>
             <span class="level-name ml-2 text-xl  hover:text-bold">${levels[level.num].syntax || ''}</span>
         </a>`).join('');
 
