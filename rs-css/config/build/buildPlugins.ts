@@ -1,6 +1,6 @@
 import webpack from "webpack";
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import { BuildOptions } from "./types/config";
 
 export function buildPlugins({ paths }: BuildOptions): webpack.WebpackPluginInstance[] {
@@ -10,6 +10,6 @@ export function buildPlugins({ paths }: BuildOptions): webpack.WebpackPluginInst
             template: paths.html,
             filename: 'index.html',
         }),
-        new CleanWebpackPlugin(),
+        new FaviconsWebpackPlugin(paths.favicon),
     ]
 }

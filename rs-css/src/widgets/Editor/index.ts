@@ -3,10 +3,10 @@ import { EditorState } from "@codemirror/state";
 import { html } from "@codemirror/lang-html";
 import './style.scss';
 import { getElement } from "@shared/helpers";
+import * as StateApi from "@shared/state/api";
 import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
-import * as StateApi from "../../shared/state/api";
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
