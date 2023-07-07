@@ -10,7 +10,7 @@ export class Gamefield implements IGameField {
     private props: GameFieldProps = {
         title: 'Select the bento boxes',
         className: ['flex', 'flex-col', 'justify-center', 'items-center'],
-        buttonTitle: "Help, I'm stuck!",
+        buttonTitle: "Grogu, help, I'm stuck!",
         buttonHandler: (): void => {
             const modal = getElement(this.gamefield, '.main-modal');
             modal.classList.remove('hidden');

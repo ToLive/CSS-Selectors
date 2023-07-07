@@ -89,7 +89,7 @@
     }
 
     10% {
-        transform: skew(1deg, 0deg) scaleY(.9);
+        transform: skew(1deg, 0deg) scaleY(1);
     }
 
     50% {
@@ -97,7 +97,7 @@
     }
 
     60% {
-        transform: skew(-1deg, 0deg) scaleY(.9);
+        transform: skew(-1deg, 0deg) scaleY(1);
     }
 
     100% {
