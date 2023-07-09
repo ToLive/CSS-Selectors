@@ -41,6 +41,16 @@ export class Editor {
 
         this.checkAnswerButton = getElement<HTMLButtonElement>(cssContainer, '.check-answer');
         this.userAnswerInput = getElement<HTMLInputElement>(cssContainer, '.user-css-input');
+        this.addListeners();
+
+        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor">`;
+        this.htmlViewer.className = 'space';
+        this.htmlContainer.append(this.htmlViewer);
+
+        this.editor.append(cssContainer, this.htmlContainer);
+    }
+
+    private addListeners(): void {
         this.userAnswerInput.addEventListener('input', () => {
             if (this.userAnswerInput.value === '') {
                 this.checkAnswerButton.classList.remove('blink-enter');
@@ -73,12 +83,6 @@ export class Editor {
                 setTimeout(() => this.editor.classList.remove('shake-editor'), ANIM_DELAY);
             }
         });
-
-        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor">`;
-        this.htmlViewer.className = 'space';
-        this.htmlContainer.append(this.htmlViewer);
-
-        this.editor.append(cssContainer, this.htmlContainer);
     }
 
     public checkAnswer(): void {
@@ -113,88 +117,81 @@ export class Editor {
         getElement<HTMLInputElement>(this.editor, '.user-css-input').value = '';
     }
 
+    private highlightElement(element: HTMLElement, indent: string): HighlightedElement {
+        const tag = element.tagName.toLowerCase();
+        const id = element.id
+            ? `<span class="key"> id=</span><span class="value">"${element.id}"</span>`
+            : '';
+
+        const classes = element.classList.length
+            ? `<span class="key"> class=</span><span class="value">"${element.classList.toString()}"</span>`
+            : '';
+
+        return {
+            openTag: `${indent}&lt;${tag}${id}${classes}&gt;`,
+            closeTag: `${indent}&lt;/${tag}&gt;`,
+        }
+    }
+
+    private wrapNodesAndTransformToText(container: HTMLElement, doc: string): string {
+        let counter = -2;
+        let indentLevel = 0;
+        const indentSize = 4;
+        const COUNTER_STEP = 1;
+
+        function getIndentation(): string {
+            return '&nbsp;'.repeat(indentLevel * indentSize);
+        }
+
+        const wrapNode = (node: Node): string => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                return '';
+            }
+
+            counter += COUNTER_STEP;
+
+            let hasChildren = false;
+            const id = counter;
+            let wrap = `<div class="highlight-block" data-id="${id}">`;
+            const hl = this.highlightElement(node as HTMLElement, getIndentation());
+
+            wrap += hl.openTag;
+
+            // eslint-disable-next-line no-magic-numbers
+            if (node.childNodes && node.childNodes.length > 0) {
+                indentLevel += COUNTER_STEP;
+                hasChildren = true;
+
+                node.childNodes.forEach((child: Node) => {
+                    const childText = wrapNode(child);
+                    wrap += childText;
+                })
+
+                indentLevel -= COUNTER_STEP;
+            }
+
+            wrap += hasChildren ? hl.closeTag : hl.closeTag.replace(/&nbsp;/g, '');
+            wrap += '\n</div>';
+
+            return wrap;
+        }
+
+        // eslint-disable-next-line no-param-reassign
+        container.innerHTML = doc;
+
+        return wrapNode(container);
+    }
+
     public setHtmlViewer(text: string): void {
-        function highlightElement(element: HTMLElement, indent: string): HighlightedElement {
-            const tag = element.tagName.toLowerCase();
-            const id = element.id
-                ? `<span class="key"> id=</span><span class="value">"${element.id}"</span>`
-                : '';
-
-            const classes = element.classList.length
-                ? `<span class="key"> class=</span><span class="value">"${element.classList.toString()}"</span>`
-                : '';
-
-            return {
-                openTag: `${indent}&lt;${tag}${id}${classes}&gt;`,
-                closeTag: `${indent}&lt;/${tag}&gt;`,
-            }
-        }
-
-        function wrapNodesAndTransformToText(container: HTMLElement, doc: string): string {
-            let counter = -2;
-            let indentLevel = 0;
-            const indentSize = 4;
-            const COUNTER_STEP = 1;
-
-            function getIndentation(): string {
-                return '&nbsp;'.repeat(indentLevel * indentSize);
-            }
-
-            function wrapNode(node: Node): string {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    return '';
-                }
-
-                let hasChildren = false;
-
-                counter += COUNTER_STEP;
-                const id = counter;
-
-                let wrap = `<div class="highlight-block" data-id="${id}">`;
-
-                const hl = highlightElement(node as HTMLElement, getIndentation());
-
-                wrap += hl.openTag;
-
-
-                // eslint-disable-next-line no-magic-numbers
-                if (node.childNodes && node.childNodes.length > 0) {
-                    indentLevel += COUNTER_STEP;
-                    hasChildren = true;
-
-                    node.childNodes.forEach((child: Node) => {
-                        const childText = wrapNode(child);
-                        wrap += childText;
-                    })
-
-                    indentLevel -= COUNTER_STEP;
-                }
-
-                wrap += hasChildren ? hl.closeTag : hl.closeTag.replace(/&nbsp;/g, '');
-
-                wrap += '\n</div>';
-
-                return wrap;
-            }
-
-            // eslint-disable-next-line no-param-reassign
-            container.innerHTML = doc;
-
-            return wrapNode(container);
-        }
-
-        this.htmlViewer.innerHTML = wrapNodesAndTransformToText(this.htmlViewer, text);
+        this.htmlViewer.innerHTML = this.wrapNodesAndTransformToText(this.htmlViewer, text);
 
         this.htmlViewer.querySelectorAll('.space div > div').forEach((item) => {
-            console.log(item);
-
             (item as HTMLElement).addEventListener('mouseover', (e) => {
                 this.htmlViewer.querySelectorAll('.selected').forEach((el) => el.classList.remove('selected'));
 
                 (e.target as HTMLElement).classList.add('selected');
 
                 const elemId = (e.target as HTMLElement).dataset.id || '';
-                console.log(elemId);
 
                 StateApi.setSelectedItem(Number(elemId));
             })

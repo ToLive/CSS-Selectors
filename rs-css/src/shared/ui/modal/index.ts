@@ -4,6 +4,7 @@ import './style.scss';
 export class Modal {
     private modal: HTMLDivElement = document.createElement('div');
 
+    // eslint-disable-next-line max-lines-per-function
     constructor() {
         this.modal.className = 'main-modal hidden w-full h-100 inset-0 z-50 flex overflow-hidden justify-center items-center animated fadeIn faster absolute z-[300]';
         this.modal.innerHTML = `
