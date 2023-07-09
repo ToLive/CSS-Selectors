@@ -6,7 +6,6 @@ import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
 import { HighlightedElement } from './types';
-import { html } from 'parse5';
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
@@ -126,56 +125,59 @@ export class Editor {
                 : '';
 
             return {
-                head: `${indent}&lt;${tag}${id}${classes}&gt;`,
-                tail: `${indent}&lt;/${tag}&gt;`,
+                openTag: `${indent}&lt;${tag}${id}${classes}&gt;`,
+                closeTag: `${indent}&lt;/${tag}&gt;`,
             }
         }
 
-        function wrapNodesAndTransformToText(container: HTMLElement, doc: string) {
+        function wrapNodesAndTransformToText(container: HTMLElement, doc: string): string {
             let counter = -2;
             let indentLevel = 0;
             const indentSize = 4;
+            const COUNTER_STEP = 1;
 
             function getIndentation(): string {
                 return '&nbsp;'.repeat(indentLevel * indentSize);
             }
 
-            function wrapNode(node: any) {
+            function wrapNode(node: Node): string {
                 if (node.nodeType === Node.TEXT_NODE) {
                     return '';
                 }
 
                 let hasChildren = false;
 
-                counter += 1;
+                counter += COUNTER_STEP;
                 const id = counter;
 
                 let wrap = `<div class="highlight-block" data-id="${id}">`;
 
                 const hl = highlightElement(node as HTMLElement, getIndentation());
 
-                wrap += hl.head;
+                wrap += hl.openTag;
 
 
+                // eslint-disable-next-line no-magic-numbers
                 if (node.childNodes && node.childNodes.length > 0) {
-                    indentLevel += 1;
+                    indentLevel += COUNTER_STEP;
                     hasChildren = true;
 
-                    for (const childNode of node.childNodes) {
-                        const childText = wrapNode(childNode);
+                    node.childNodes.forEach((child: Node) => {
+                        const childText = wrapNode(child);
                         wrap += childText;
-                    }
+                    })
 
-                    indentLevel -= 1;
+                    indentLevel -= COUNTER_STEP;
                 }
 
-                wrap += hasChildren ? hl.tail : hl.tail.replace(/&nbsp;/g, '');
+                wrap += hasChildren ? hl.closeTag : hl.closeTag.replace(/&nbsp;/g, '');
 
                 wrap += '\n</div>';
 
                 return wrap;
             }
 
+            // eslint-disable-next-line no-param-reassign
             container.innerHTML = doc;
 
             return wrapNode(container);
@@ -197,8 +199,8 @@ export class Editor {
                 StateApi.setSelectedItem(Number(elemId));
             })
 
-            item.addEventListener('mouseleave', (e) => {
-                StateApi.setSelectedItem(-1);
+            item.addEventListener('mouseleave', () => {
+                StateApi.setSelectedItem(StateApi.NOT_SET_ITEM);
                 item.classList.remove('selected');
             })
         })

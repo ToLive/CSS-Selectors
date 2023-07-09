@@ -1,4 +1,4 @@
 export type HighlightedElement = {
-    head: string;
-    tail: string;
+    openTag: string;
+    closeTag: string;
 }

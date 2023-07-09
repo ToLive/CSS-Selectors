@@ -1,4 +1,5 @@
 import { getElement } from "@shared/helpers";
+import { NOT_SET_ITEM } from "@shared/state/api";
 import { Modal } from "@shared/ui/modal";
 import { GameFieldProps, IGameField } from "./types";
 
@@ -68,6 +69,7 @@ export class Gamefield implements IGameField {
         })
 
         table.querySelectorAll('*').forEach((item, idx) => {
+            // eslint-disable-next-line no-param-reassign
             (item as HTMLElement).dataset.id = idx.toString();
         })
 
@@ -89,7 +91,7 @@ export class Gamefield implements IGameField {
                     return;
                 }
 
-                this.setSelectedItem(-1);
+                this.setSelectedItem(NOT_SET_ITEM);
             });
         })
     }

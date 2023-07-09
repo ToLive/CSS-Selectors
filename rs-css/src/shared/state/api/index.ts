@@ -5,4 +5,4 @@ export { getLevelStatus } from './getLevelStatus';
 export { resetProgress } from './resetProgress';
 export { saveLevelStatus } from './saveLevelStatus';
 export { setCurrentLevel } from './setCurrentLevel';
-export { setSelectedItem } from './setSelectedItem';
+export { setSelectedItem, NOT_SET_ITEM } from './setSelectedItem';

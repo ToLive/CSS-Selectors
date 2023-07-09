@@ -147,19 +147,23 @@ export class Game {
         });
 
         window.addEventListener('rightAnswer', () => {
+            const CHANGE_DELAY = 1000;
+
             this.gamefield.animateRightAnswer(levels[StateApi.getCurrentLevel()].selector);
 
             this.levelSelect.updateLevelProgress(StateApi.getCurrentLevel());
 
-            const unsolvedLevels = StateApi.getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + 1, 0);
+            // eslint-disable-next-line no-magic-numbers
+            const unsolvedLevels = StateApi.getSavedLevels()?.reduce((acc, value) => value.solved ? acc : acc + LEVEL_STEP, 0);
 
+            // eslint-disable-next-line no-magic-numbers
             if (Number(unsolvedLevels) - 1 === 0) {
                 this.gamefield.showModal();
 
                 return;
             }
 
-            setTimeout(() => changeLevel(StateApi.getCurrentLevel() + LEVEL_STEP), 1000);
+            setTimeout(() => changeLevel(StateApi.getCurrentLevel() + LEVEL_STEP), CHANGE_DELAY);
         });
 
         window.addEventListener('changeSelectedItem', (event: Event) => {
