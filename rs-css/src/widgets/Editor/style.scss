@@ -2,17 +2,25 @@
     border-radius: 0.75rem;
 }
 
-.cm-editor {
-    max-height: 180px;
+.space {
+    padding: 20px;
 }
 
-.cm-content {
-    background-color: white;
-    font-size: 13px;
-}
+.highlight-block {
+    color: rgb(252, 223, 43);
 
-.cm-gutters {
-    background-color: rgba(153, 246, 228, var(--tw-bg-opacity)) !important;
+    .selected {
+        box-shadow: 0px 0px 8px 0px rgba(95, 213, 255, 0.91);
+    }
+
+    .key {
+        color: honeydew;
+        font-weight: 700;
+    }
+
+    .value {
+        color: rgb(173, 226, 220);
+    }
 }
 
 .grogu-helper {
@@ -29,15 +37,6 @@
     }
 }
 
-.cm-line:hover {
-    font-weight: 700;
-    background-color: rgb(139, 226, 226);
-}
-
-.selected {
-    font-weight: 700;
-    background-color: rgb(139, 226, 226);
-}
 
 .blink-background {
     animation: blinkingBack 2s infinite;

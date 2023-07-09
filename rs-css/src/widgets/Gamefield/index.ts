@@ -58,19 +58,6 @@ export class Gamefield implements IGameField {
         const tempElement = document.createElement('div');
         tempElement.innerHTML = content;
 
-        /* let linesCounter = 0;
-
-        tempElement.querySelectorAll('*').forEach((item, idx) => {
-            (item as HTMLElement).dataset.id = linesCounter.toString();
-
-            const itemLines = ([...item.innerHTML.matchAll(/(\r\n|\r|\n)/g)].length + 1);
-
-            linesCounter += itemLines;
-
-            (item as HTMLElement).dataset.lines = linesCounter.toString();
-
-            // linesCounter += linesCounter;
-        }); */
 
         const table = getElement<HTMLDivElement>(this.gamefield, '.game-table');
 
@@ -80,50 +67,59 @@ export class Gamefield implements IGameField {
             item.classList.add('strobe');
         })
 
-        const tooltip = getElement(this.gamefield, '.tooltip');
-        const tooltiptext = getElement(this.gamefield, '.tooltip-text');
+        table.querySelectorAll('*').forEach((item, idx) => {
+            (item as HTMLElement).dataset.id = idx.toString();
+        })
+
+
 
         table.querySelectorAll('*').forEach((item) => {
-            item.addEventListener('mouseenter', (event) => {
-                const elemClone = document.createElement('div');
-                elemClone.innerHTML = (event.target as HTMLElement).outerHTML;
-
-                elemClone.querySelectorAll('*').forEach(element => {
-                    element.classList.remove('strobe');
-                    element.classList.remove('backdrop');
-                });
-                tooltiptext.textContent = elemClone.innerHTML
-                    .replace(/class=""/g, '')
-                    .replace(/data-id="."/g, '')
-                    .replace(/ >/g, '>');
-                tooltip.classList.add('show');
+            item.addEventListener('mouseenter', () => {
+                this.setSelectedItem(Number((item as HTMLElement).dataset.id));
 
                 item.classList.add('backdrop');
-
-                // console.log(item);
-
-                const firstIndex = Number((item as HTMLElement).dataset.id);
-                const lastIndex = Number((item as HTMLElement).dataset.lines);
-
-                console.log(firstIndex, lastIndex);
-
-                /* document.querySelectorAll('.cm-line').forEach((line, index) => {
-                    if (index >= firstIndex && index <= lastIndex - 1) {
-                        line.classList.add('selected');
-                    }
-                    // console.log(line.outerHTML)
-                }) */
             });
 
-            item.addEventListener('mouseleave', () => {
-                document.querySelectorAll('.cm-line').forEach((line) => {
-                    line.classList.remove('selected');
-                })
+            item.addEventListener('mouseleave', (e: Event) => {
+                const relItem = (e as MouseEvent).relatedTarget;
 
-                item.classList.remove('backdrop');
-                tooltip.classList.remove('show');
+                if (relItem) {
+                    this.setSelectedItem(Number((relItem as HTMLElement).dataset.id));
+
+                    return;
+                }
+
+                this.setSelectedItem(-1);
             });
         })
+    }
+
+    public setSelectedItem(itemNum: number): void {
+        this.gamefield.querySelectorAll('.backdrop').forEach((el) => el.classList.remove('backdrop'));
+        const tooltip = getElement(this.gamefield, '.tooltip');
+        tooltip.classList.remove('show');
+
+        const tableItem = this.gamefield.querySelector(`[data-id="${itemNum}"]`);
+
+        if (tableItem) {
+            tableItem?.classList.add('backdrop');
+
+
+            const tooltiptext = getElement(this.gamefield, '.tooltip-text');
+
+            const elemClone = document.createElement('div');
+            elemClone.innerHTML = tableItem.outerHTML;
+
+            elemClone.querySelectorAll('*').forEach(element => {
+                element.classList.remove('strobe');
+                element.classList.remove('backdrop');
+            });
+            tooltiptext.textContent = elemClone.innerHTML
+                .replace(/class=""/g, '')
+                .replace(/data-id="."/g, '')
+                .replace(/ >/g, '>');
+            tooltip.classList.add('show');
+        }
     }
 
     public showModal(): void {

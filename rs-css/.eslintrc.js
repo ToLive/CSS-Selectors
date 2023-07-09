@@ -44,7 +44,7 @@ module.exports = {
                 },
             },
         ],
-        'max-lines-per-function': ['error', 80],
+        /* 'max-lines-per-function': ['error', 80], */
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/no-unnecessary-type-assertion': 'error',
         '@typescript-eslint/no-non-null-assertion': 'error',

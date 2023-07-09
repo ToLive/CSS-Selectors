@@ -88,7 +88,7 @@ export class Game {
         const levelData: Level = levels[StateApi.getCurrentLevel()];
 
         this.gamefield.setTable(levelData.boardMarkup, levelData.selector);
-        this.editor.setHtmlViewer(`<div class="space">${levelData.boardMarkup}</div>`);
+        this.editor.setHtmlViewer(levelData.boardMarkup);
 
         this.editor.clearInput();
 
@@ -160,6 +160,13 @@ export class Game {
             }
 
             setTimeout(() => changeLevel(StateApi.getCurrentLevel() + LEVEL_STEP), 1000);
+        });
+
+        window.addEventListener('changeSelectedItem', (event: Event) => {
+            const eventData: Pick<EventDetail, "itemNum"> = (event as CustomEvent).detail as EventDetail;
+            const { itemNum } = eventData;
+
+            this.gamefield.setSelectedItem(itemNum);
         });
 
         window.addEventListener('changeLevel', (event: Event) => {

@@ -27,6 +27,258 @@
     position: relative;
     margin: 10px auto 0 auto;
     width: 250px;
+
+    deathstar {
+        height: 100px;
+        width: 100px;
+        background-image: url('./assets/death-star-svgrepo-com.svg');
+        background-size: contain;
+        position: relative;
+
+        vader {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        stormtrooper {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    vader {
+        display: block;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        background: url('./assets/darth-vader-svgrepo-com.svg') no-repeat;
+        background-size: contain;
+
+        &#slug:before {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 100px;
+            transform: rotate(20deg);
+            background: url('./assets/brain-slug-svgrepo-com.svg') no-repeat;
+            background-size: 50%;
+            background-position: 40px -12px;
+        }
+
+        &.small {
+            display: block;
+            position: relative;
+            left: px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    millenium-falcon {
+        height: 100px;
+        width: 100px;
+        background-image: url('./assets/millennium-falcon-svgrepo-com.svg');
+        background-size: contain;
+
+        chewie {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background: url('./assets/chewbacca-svgrepo-com.svg') no-repeat;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        leia {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background: url('./assets/princess-leia-svgrepo-com.svg') no-repeat;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        luke {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background: url('./assets/luke-skywalker.png') no-repeat;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        c3po {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background: url('./assets/c3po.svg') no-repeat;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        vader {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background: url('./assets/darth-vader-svgrepo-com.svg') no-repeat;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    chewie {
+        height: 100px;
+        width: 100px;
+        background: url('./assets/chewbacca-svgrepo-com.svg') no-repeat;
+        background-size: contain;
+
+        &.small {
+            display: block;
+            position: relative;
+            left: 25px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    leia {
+        height: 100px;
+        width: 100px;
+        background: url('./assets/princess-leia-svgrepo-com.svg') no-repeat;
+        background-size: contain;
+
+        &.small {
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-size: 50%;
+            background-position: 25px 25px;
+        }
+    }
+
+    luke {
+        position: relative;
+        height: 100px;
+        width: 100px;
+        background: url('./assets/luke-skywalker.png') no-repeat;
+        background-size: contain;
+
+        &.small {
+            display: block;
+            position: relative;
+            left: px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    bb-8 {
+        position: relative;
+        height: 100px;
+        width: 100px;
+        background: url('./assets/bb-8-svgrepo-com.svg') no-repeat;
+        background-size: contain;
+
+        &.small {
+            display: block;
+            position: relative;
+            left: px;
+            top: 25px;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+    }
+
+    lightsaber {
+        display: block;
+        height: 100px;
+        width: 100px;
+        position: absolute;
+        left: -25px;
+        rotate: -20deg;
+        background-image: url('./assets/lightsaber-green.svg');
+        background-size: contain;
+
+        &.red {
+            display: block;
+            position: absolute;
+            left: 30px;
+            rotate: 20deg;
+            background-image: url('./assets/lightsaber-red.svg');
+            background-size: contain;
+        }
+
+        &.small {
+            height: 50px;
+            width: 50px;
+        }
+    }
+
+    stormtrooper {
+        position: relative;
+        height: 100px;
+        width: 100px;
+        background: url('./assets/stormtrooper-svgrepo-com.svg') no-repeat;
+        background-size: contain;
+
+        &.small {
+            display: block;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-size: 100%;
+            background-position: 0 0;
+        }
+
+        &#slug:before {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 100px;
+            transform: rotate(20deg);
+            background: url('./assets/brain-slug-svgrepo-com.svg') no-repeat;
+            background-size: 50%;
+            background-position: 35px -14px;
+        }
+    }
 }
 
 .table-surface {
@@ -119,259 +371,6 @@
         transform: translateY(-600px) rotate3d(0, 0, 0, 0deg);
     }
 }
-
-deathstar {
-    height: 100px;
-    width: 100px;
-    background-image: url('./assets/death-star-svgrepo-com.svg');
-    background-size: contain;
-    position: relative;
-
-    vader {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    stormtrooper {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-vader {
-    display: block;
-    width: 100px;
-    height: 100px;
-    position: relative;
-    background: url('./assets/darth-vader-svgrepo-com.svg') no-repeat;
-    background-size: contain;
-
-    &#slug:before {
-        content: "";
-        display: block;
-        width: 100px;
-        height: 100px;
-        transform: rotate(20deg);
-        background: url('./assets/brain-slug-svgrepo-com.svg') no-repeat;
-        background-size: 50%;
-        background-position: 40px -12px;
-    }
-
-    &.small {
-        display: block;
-        position: relative;
-        left: px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-millenium-falcon {
-    height: 100px;
-    width: 100px;
-    background-image: url('./assets/millennium-falcon-svgrepo-com.svg');
-    background-size: contain;
-
-    chewie {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background: url('./assets/chewbacca-svgrepo-com.svg') no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    leia {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background: url('./assets/princess-leia-svgrepo-com.svg') no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    luke {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background: url('./assets/luke-skywalker.png') no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    c3po {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background: url('./assets/c3po.svg') no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    vader {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background: url('./assets/darth-vader-svgrepo-com.svg') no-repeat;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-chewie {
-    height: 100px;
-    width: 100px;
-    background: url('./assets/chewbacca-svgrepo-com.svg') no-repeat;
-    background-size: contain;
-
-    &.small {
-        display: block;
-        position: relative;
-        left: 25px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-leia {
-    height: 100px;
-    width: 100px;
-    background: url('./assets/princess-leia-svgrepo-com.svg') no-repeat;
-    background-size: contain;
-
-    &.small {
-        display: block;
-        width: 100px;
-        height: 100px;
-        background-size: 50%;
-        background-position: 25px 25px;
-    }
-}
-
-luke {
-    position: relative;
-    height: 100px;
-    width: 100px;
-    background: url('./assets/luke-skywalker.png') no-repeat;
-    background-size: contain;
-
-    &.small {
-        display: block;
-        position: relative;
-        left: px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-bb-8 {
-    position: relative;
-    height: 100px;
-    width: 100px;
-    background: url('./assets/bb-8-svgrepo-com.svg') no-repeat;
-    background-size: contain;
-
-    &.small {
-        display: block;
-        position: relative;
-        left: px;
-        top: 25px;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-}
-
-lightsaber {
-    display: block;
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    left: -25px;
-    rotate: -20deg;
-    background-image: url('./assets/lightsaber-green.svg');
-    background-size: contain;
-
-    &.red {
-        display: block;
-        position: absolute;
-        left: 30px;
-        rotate: 20deg;
-        background-image: url('./assets/lightsaber-red.svg');
-        background-size: contain;
-    }
-
-    &.small {
-        height: 50px;
-        width: 50px;
-    }
-}
-
-stormtrooper {
-    position: relative;
-    height: 100px;
-    width: 100px;
-    background: url('./assets/stormtrooper-svgrepo-com.svg') no-repeat;
-    background-size: contain;
-
-    &.small {
-        display: block;
-        position: relative;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-position: 0 0;
-    }
-
-    &#slug:before {
-        content: "";
-        display: block;
-        width: 100px;
-        height: 100px;
-        transform: rotate(20deg);
-        background: url('./assets/brain-slug-svgrepo-com.svg') no-repeat;
-        background-size: 50%;
-        background-position: 35px -14px;
-    }
-}
-
 
 .tooltip {
     position: relative;

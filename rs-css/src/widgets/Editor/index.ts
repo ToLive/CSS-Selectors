@@ -1,12 +1,12 @@
-import { EditorView, basicSetup } from "codemirror";
-import { EditorState } from "@codemirror/state";
-import { html } from "@codemirror/lang-html";
+
 import './style.scss';
 import { getElement } from "@shared/helpers";
 import * as StateApi from "@shared/state/api";
 import { checkAnswer } from "@features/levels";
 import { editorPlaceholder } from "./lib/config";
 import Grogu from './assets/grogu.png';
+import { HighlightedElement } from './types';
+import { html } from 'parse5';
 
 export class Editor {
     private editor: HTMLElement = document.createElement('div');
@@ -17,7 +17,7 @@ export class Editor {
 
     private htmlContainer: HTMLDivElement;
 
-    private htmlViewer: EditorView;
+    private htmlViewer: HTMLDivElement = document.createElement('div');
 
     constructor() {
         this.editor.className = 'flex flex-col relative z-[100] xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
@@ -75,15 +75,11 @@ export class Editor {
             }
         });
 
-        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor"></div><div class="p-2 rounded-xl text-white h-[10px]"></div>`;
+        this.htmlContainer.innerHTML = `<div class="p-2 rounded-xl text-white h-[35px]"><span class="text-center">HTML Preview</span></div><div class="editor">`;
+        this.htmlViewer.className = 'space';
+        this.htmlContainer.append(this.htmlViewer);
 
         this.editor.append(cssContainer, this.htmlContainer);
-
-        this.htmlViewer = new EditorView({
-            doc: '',
-            extensions: [basicSetup],
-            parent: this.htmlContainer.querySelector('.editor') as HTMLElement,
-        });
     }
 
     public checkAnswer(): void {
@@ -119,15 +115,93 @@ export class Editor {
     }
 
     public setHtmlViewer(text: string): void {
-        this.htmlViewer.setState(EditorState.create({ doc: text, extensions: [basicSetup, html()] }))
+        function highlightElement(element: HTMLElement, indent: string): HighlightedElement {
+            const tag = element.tagName.toLowerCase();
+            const id = element.id
+                ? `<span class="key"> id=</span><span class="value">"${element.id}"</span>`
+                : '';
 
-        this.htmlContainer.querySelectorAll('.cm-line').forEach((line, idx) => {
-            line.addEventListener('mouseover', (e) => {
-                if (line.textContent?.includes(' </')) {
-                    const tag = line.textContent.replace(' </', '').replace('>', '');
+            const classes = element.classList.length
+                ? `<span class="key"> class=</span><span class="value">"${element.classList.toString()}"</span>`
+                : '';
+
+            return {
+                head: `${indent}&lt;${tag}${id}${classes}&gt;`,
+                tail: `${indent}&lt;/${tag}&gt;`,
+            }
+        }
+
+        function wrapNodesAndTransformToText(container: HTMLElement, doc: string) {
+            let counter = -2;
+            let indentLevel = 0;
+            const indentSize = 4;
+
+            function getIndentation(): string {
+                return '&nbsp;'.repeat(indentLevel * indentSize);
+            }
+
+            function wrapNode(node: any) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    return '';
                 }
+
+                let hasChildren = false;
+
+                counter += 1;
+                const id = counter;
+
+                let wrap = `<div class="highlight-block" data-id="${id}">`;
+
+                const hl = highlightElement(node as HTMLElement, getIndentation());
+
+                wrap += hl.head;
+
+
+                if (node.childNodes && node.childNodes.length > 0) {
+                    indentLevel += 1;
+                    hasChildren = true;
+
+                    for (const childNode of node.childNodes) {
+                        const childText = wrapNode(childNode);
+                        wrap += childText;
+                    }
+
+                    indentLevel -= 1;
+                }
+
+                wrap += hasChildren ? hl.tail : hl.tail.replace(/&nbsp;/g, '');
+
+                wrap += '\n</div>';
+
+                return wrap;
+            }
+
+            container.innerHTML = doc;
+
+            return wrapNode(container);
+        }
+
+        this.htmlViewer.innerHTML = wrapNodesAndTransformToText(this.htmlViewer, text);
+
+        this.htmlViewer.querySelectorAll('.space div > div').forEach((item) => {
+            console.log(item);
+
+            (item as HTMLElement).addEventListener('mouseover', (e) => {
+                this.htmlViewer.querySelectorAll('.selected').forEach((el) => el.classList.remove('selected'));
+
+                (e.target as HTMLElement).classList.add('selected');
+
+                const elemId = (e.target as HTMLElement).dataset.id || '';
+                console.log(elemId);
+
+                StateApi.setSelectedItem(Number(elemId));
             })
-        });
+
+            item.addEventListener('mouseleave', (e) => {
+                StateApi.setSelectedItem(-1);
+                item.classList.remove('selected');
+            })
+        })
     }
 
     public showHelper(answer: string): void {
