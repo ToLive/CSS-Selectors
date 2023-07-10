@@ -122,29 +122,12 @@ export class Game {
     }
 
     private addEventListeners(): void {
-        const levelContainer = this.levelSelect.getContainer();
-
-        const nextLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.next-level');
-        const previousLevelButton = getElement<HTMLAnchorElement>(levelContainer, '.previous-level');
-
         const changeLevel = (newLevel: number): void => {
             if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
                 StateApi.setCurrentLevel(newLevel);
                 this.setLevelData(newLevel);
             }
         };
-
-        nextLevelButton.addEventListener('click', () => {
-            const currentLevel = StateApi.getCurrentLevel();
-
-            changeLevel(currentLevel + LEVEL_STEP);
-        });
-
-        previousLevelButton.addEventListener('click', () => {
-            const currentLevel = StateApi.getCurrentLevel();
-
-            changeLevel(currentLevel - LEVEL_STEP);
-        });
 
         window.addEventListener('rightAnswer', () => {
             const CHANGE_DELAY = 1000;

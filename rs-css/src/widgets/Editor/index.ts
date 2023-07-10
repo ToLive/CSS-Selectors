@@ -18,6 +18,8 @@ export class Editor {
 
     private htmlViewer: HTMLDivElement = document.createElement('div');
 
+    private indentSize = 4;
+
     constructor() {
         this.editor.className = 'flex flex-col relative z-[100] xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
 
@@ -133,29 +135,23 @@ export class Editor {
         }
     }
 
-    private wrapNodesAndTransformToText(container: HTMLElement, doc: string): string {
+    private wrapNodesAndTransformToText(doc: string): string {
         let counter = -2;
         let indentLevel = 0;
-        const indentSize = 4;
         const COUNTER_STEP = 1;
 
-        function getIndentation(): string {
-            return '&nbsp;'.repeat(indentLevel * indentSize);
-        }
+        const getIndentation = (): string => '&nbsp;'.repeat(indentLevel * this.indentSize);
 
         const wrapNode = (node: Node): string => {
             if (node.nodeType === Node.TEXT_NODE) {
                 return '';
             }
 
+            let hasChildren = false;
+            const hl = this.highlightElement(node as HTMLElement, getIndentation());
             counter += COUNTER_STEP;
 
-            let hasChildren = false;
-            const id = counter;
-            let wrap = `<div class="highlight-block" data-id="${id}">`;
-            const hl = this.highlightElement(node as HTMLElement, getIndentation());
-
-            wrap += hl.openTag;
+            let wrap = `<div class="highlight-block" data-id="${counter}">${hl.openTag}`;
 
             // eslint-disable-next-line no-magic-numbers
             if (node.childNodes && node.childNodes.length > 0) {
@@ -163,9 +159,8 @@ export class Editor {
                 hasChildren = true;
 
                 node.childNodes.forEach((child: Node) => {
-                    const childText = wrapNode(child);
-                    wrap += childText;
-                })
+                    wrap += wrapNode(child);
+                });
 
                 indentLevel -= COUNTER_STEP;
             }
@@ -176,14 +171,13 @@ export class Editor {
             return wrap;
         }
 
-        // eslint-disable-next-line no-param-reassign
-        container.innerHTML = doc;
+        this.htmlViewer.innerHTML = doc;
 
-        return wrapNode(container);
+        return wrapNode(this.htmlViewer);
     }
 
     public setHtmlViewer(text: string): void {
-        this.htmlViewer.innerHTML = this.wrapNodesAndTransformToText(this.htmlViewer, text);
+        this.htmlViewer.innerHTML = this.wrapNodesAndTransformToText(text);
 
         this.htmlViewer.querySelectorAll('.space div > div').forEach((item) => {
             (item as HTMLElement).addEventListener('mouseover', (e) => {

@@ -2,15 +2,18 @@ import { getElement } from "@shared/helpers";
 import { levels } from "@features/levels";
 import { Level } from "@features/levels/types";
 import * as StateApi from "@shared/state/api";
-import { LEVEL_STEP } from "@features/levels/lib/config";
+import { LEVEL_STEP, MAX_LEVEL, MIN_LEVEL } from "@features/levels/lib/config";
 import { SavedLevel } from "@shared/state/types";
 
 import './style.scss';
+import { Menu } from "./types";
 
 export class LevelSelect {
     private levelSelect: HTMLElement = document.createElement('aside');
 
     private currentLevelNumber = 0;
+
+    private menu: Menu;
 
     constructor() {
         this.levelSelect.className = 'flex flex-col h-full';
@@ -44,10 +47,12 @@ export class LevelSelect {
 
         this.levelSelect.innerHTML = elements;
 
-        this.buildMenu();
+        this.buildSideMenu();
+        this.menu = this.buildMenuToggle();
+        this.addEventListeners();
     }
 
-    private buildMenu(): void {
+    private buildSideMenu(): void {
         const menuLevelsList = StateApi.getSavedLevels()?.map((level) => `
         <a class="level w-full flex cursor-pointer my-2 hover:font-bold ${level.num === StateApi.getCurrentLevel() ? 'active-level' : ''}" data-id="${level.num}">
             <span class="checkmark ${level.solved ? "completed" : ''}"></span>
@@ -68,16 +73,44 @@ export class LevelSelect {
         </div>`;
 
         this.levelSelect.insertAdjacentHTML('beforeend', levelList);
+    }
 
+    private buildMenuToggle(): Menu {
         const menuToggleWrapper = getElement(this.levelSelect, '.menu-toggle-wrapper');
         const menuToggle = getElement(this.levelSelect, '.menu-toggle');
         const menuBox = getElement(this.levelSelect, '.menu-box');
+
         menuToggleWrapper.addEventListener('click', () => {
+
             menuBox.classList.toggle('is-active');
             menuToggle.classList.toggle('open');
         });
 
+        return {
+            toggle: menuToggle,
+            box: menuBox,
+            show: (): void => {
+                menuBox.classList.add('is-active');
+                menuToggle.classList.add('open');
+            },
+            hide: (): void => {
+                menuBox.classList.remove('is-active');
+                menuToggle.classList.remove('open');
+            }
+        };
+    }
+
+    private addEventListeners(): void {
+        const nextLevelButton = getElement<HTMLAnchorElement>(this.levelSelect, '.next-level');
+        const previousLevelButton = getElement<HTMLAnchorElement>(this.levelSelect, '.previous-level');
         const levelsSelector = this.levelSelect.querySelectorAll('.level');
+        const resetProgressButton = getElement(this.levelSelect, '.reset-progress');
+
+        resetProgressButton.addEventListener('click', () => {
+            StateApi.resetProgress();
+
+            this.menu.hide();
+        });
 
         levelsSelector.forEach((level) => {
             level.addEventListener('click', (e) => {
@@ -88,16 +121,22 @@ export class LevelSelect {
                 this.setLevel(levelNumber);
                 StateApi.setCurrentLevel(levelNumber);
 
-                menuToggle.classList.remove('open');
-                menuBox.classList.remove('is-active');
+                this.menu.hide();
             });
         });
 
-        const resetProgressButton = getElement(this.levelSelect, '.reset-progress');
-        resetProgressButton.addEventListener('click', () => {
-            StateApi.resetProgress();
-            menuBox.classList.remove('is-active');
-            menuToggle.classList.remove('open');
+        const changeLevel = (newLevel: number): void => {
+            if (newLevel >= MIN_LEVEL && newLevel <= MAX_LEVEL) {
+                StateApi.setCurrentLevel(newLevel);
+            }
+        };
+
+        nextLevelButton.addEventListener('click', () => {
+            changeLevel(StateApi.getCurrentLevel() + LEVEL_STEP);
+        });
+
+        previousLevelButton.addEventListener('click', () => {
+            changeLevel(StateApi.getCurrentLevel() - LEVEL_STEP);
         });
     }
 
