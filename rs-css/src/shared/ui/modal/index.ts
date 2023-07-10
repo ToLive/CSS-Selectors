@@ -4,7 +4,6 @@ import './style.scss';
 export class Modal {
     private modal: HTMLDivElement = document.createElement('div');
 
-    // eslint-disable-next-line max-lines-per-function
     constructor() {
         this.modal.className = 'main-modal hidden w-full h-100 inset-0 z-50 flex overflow-hidden justify-center items-center animated fadeIn faster absolute z-[300]';
         this.modal.innerHTML = `
@@ -40,6 +39,14 @@ export class Modal {
             </div>    
         </div>`;
 
+        this.addEventListeners();
+    }
+
+    public getModal(): HTMLElement {
+        return this.modal;
+    };
+
+    private addEventListeners(): void {
         const closeModal = (): void => {
             this.modal.classList.remove('flex');
             this.modal.classList.add('hidden');
@@ -51,8 +58,4 @@ export class Modal {
         const bottomButton = getElement(this.modal, '.bottom-button');
         bottomButton.addEventListener('click', closeModal)
     }
-
-    public getModal(): HTMLElement {
-        return this.modal;
-    };
 }
