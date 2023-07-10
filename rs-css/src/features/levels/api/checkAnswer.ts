@@ -1,12 +1,11 @@
+import { setCurrentLevel, getCurrentLevel } from "@shared/state/api";
+import { checkNodelistEquality } from '@shared/helpers/api/checkNodelistEquality';
 import { LEVEL_STEP, MAX_LEVEL, MIN_LEVEL, levels } from "../lib/config";
-import { setCurrentLevel } from "../../../shared/state/api/setCurrentLevel";
-import { getCurrentLevel } from "../../../shared/state/api/getCurrentLevel";
-import { checkEquality } from '../../../shared/helpers/api/checkEquality';
 
 
-export const checkAnswer = (answer: string): boolean => {
+export const checkAnswer = (answer: string, level?: number): boolean => {
     const answerAsNum = Number(answer) - LEVEL_STEP;
-    const currentLevel = getCurrentLevel();
+    const currentLevel = level ?? getCurrentLevel();
 
     if (!Number.isNaN(answerAsNum)) {
         if (answerAsNum >= MIN_LEVEL && answerAsNum <= MAX_LEVEL) {
@@ -16,7 +15,6 @@ export const checkAnswer = (answer: string): boolean => {
         }
 
         return false;
-
     }
 
     const tempNode: HTMLElement = document.createElement('div');
@@ -26,7 +24,7 @@ export const checkAnswer = (answer: string): boolean => {
         const userAnswerNodes = tempNode.querySelectorAll(answer);
         const rightAnswerNodes = tempNode.querySelectorAll(levels[currentLevel].selector);
 
-        if (checkEquality(rightAnswerNodes, userAnswerNodes)) {
+        if (checkNodelistEquality(rightAnswerNodes, userAnswerNodes)) {
             return true;
         }
 

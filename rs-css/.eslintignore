@@ -6,3 +6,4 @@ postcss.config.js
 webpack.config.ts
 dist
 jest.config.ts
+*.test.ts
