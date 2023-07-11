@@ -15,7 +15,7 @@ const events = {
 
 function generateEvent(path: string, value: unknown): void {
     if (path.includes('levelStat')
-        && (value as SavedLevel).solved === true
+        && value && (value as SavedLevel).solved === true
     ) {
         window.dispatchEvent(events.rightAnswer({ savedLevel: value as SavedLevel }));
     }

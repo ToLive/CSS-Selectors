@@ -3,7 +3,7 @@ import './style.scss';
 import { getElement } from "@shared/helpers";
 import * as StateApi from "@shared/state/api";
 import { checkAnswer } from "@features/levels";
-import { editorPlaceholder } from "./lib/config";
+import { ANIM_DELAY, COUNTER_STEP, TYPING_DELAY, editorPlaceholder, indentSize } from "./lib/config";
 import Grogu from './assets/grogu.png';
 import { HighlightedElement } from './types';
 
@@ -17,8 +17,6 @@ export class Editor {
     private htmlContainer: HTMLDivElement;
 
     private htmlViewer: HTMLDivElement = document.createElement('div');
-
-    private indentSize = 4;
 
     constructor() {
         this.editor.className = 'flex flex-col relative z-[100] xl:w-[50%] w-[70%] items-center justify-start m-auto editor-container rounded-xl';
@@ -62,45 +60,21 @@ export class Editor {
                 this.userAnswerInput.classList.remove('blink-background');
             }
         });
-        this.checkAnswerButton.addEventListener('click', () => {
-            if (checkAnswer(this.userAnswerInput.value)) {
-                const currentLevel = StateApi.getCurrentLevel();
-
-                StateApi.changeLevelStat({
-                    num: currentLevel,
-                    solved: true,
-                    isHintUsed: StateApi.getLevelStatus(currentLevel)?.isHintUsed || false,
-                });
-
-                return;
-            };
-
-            const ANIM_DELAY = 1000;
-
-            if (this.editor.classList.contains('shake-editor')) {
-                this.editor.classList.remove('shake-editor');
-                this.editor.classList.add('shake-editor');
-            } else {
-                this.editor.classList.add('shake-editor');
-                setTimeout(() => this.editor.classList.remove('shake-editor'), ANIM_DELAY);
-            }
-        });
+        this.checkAnswerButton.addEventListener('click', () => this.checkUserAnswer.call(this));
     }
 
-    public checkAnswer(): void {
+    public checkUserAnswer(): void {
         if (checkAnswer(this.userAnswerInput.value)) {
             const currentLevel = StateApi.getCurrentLevel();
 
             StateApi.changeLevelStat({
                 num: currentLevel,
                 solved: true,
-                isHintUsed: false,
+                isHintUsed: StateApi.getLevelStatus(currentLevel)?.isHintUsed || false,
             });
 
             return;
         };
-
-        const ANIM_DELAY = 1000;
 
         if (this.editor.classList.contains('shake-editor')) {
             this.editor.classList.remove('shake-editor');
@@ -138,9 +112,8 @@ export class Editor {
     private wrapNodesAndTransformToText(doc: string): string {
         let counter = -2;
         let indentLevel = 0;
-        const COUNTER_STEP = 1;
 
-        const getIndentation = (): string => '&nbsp;'.repeat(indentLevel * this.indentSize);
+        const getIndentation = (): string => '&nbsp;'.repeat(indentLevel * indentSize);
 
         const wrapNode = (node: Node): string => {
             if (node.nodeType === Node.TEXT_NODE) {
@@ -204,9 +177,6 @@ export class Editor {
         this.userAnswerInput.value = '';
 
         this.userAnswerInput.focus();
-
-        const COUNTER_STEP = 1;
-        const TYPING_DELAY = 200;
 
         const typer = setInterval(() => {
             this.userAnswerInput.classList.remove('blink-background');

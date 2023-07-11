@@ -176,7 +176,7 @@ export class Game {
 
         window.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.editor.checkAnswer();
+                this.editor.checkUserAnswer();
             }
         });
 

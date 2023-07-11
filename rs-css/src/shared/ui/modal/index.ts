@@ -52,10 +52,12 @@ export class Modal {
             this.modal.classList.add('hidden');
         };
 
-        const closeButton = getElement(this.modal, '.modal-close');
-        closeButton.addEventListener('click', closeModal)
+        const modalButtons = {
+            closeButton: getElement(this.modal, '.modal-close'),
+            bottomButton: getElement(this.modal, '.bottom-button'),
+        };
 
-        const bottomButton = getElement(this.modal, '.bottom-button');
-        bottomButton.addEventListener('click', closeModal)
+        modalButtons.closeButton.addEventListener('click', closeModal);
+        modalButtons.bottomButton.addEventListener('click', closeModal);
     }
 }
