@@ -1,9 +1,0 @@
-.eslintrc.js
-/config/*
-*.d.ts
-tailwind.config.js
-postcss.config.js
-webpack.config.ts
-dist
-jest.config.ts
-*.test.ts

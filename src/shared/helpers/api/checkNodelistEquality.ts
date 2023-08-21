@@ -1,1 +1,0 @@
-export const checkNodelistEquality = (A: NodeList, B: NodeList): boolean => Array.from(A).length === Array.from(B).length && Array.from(A).every((e: Node, i: number): boolean => e === B[i]);
